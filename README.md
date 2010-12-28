@@ -1,12 +1,15 @@
+[jReject](http://jreject.turnwheel.com/) - jQuery Browser Rejection Plugin
+================================
+
 Created by Steven Bower
 TurnWheel Designs 2009-2011
 
 Concept based on "IE6 Upgrade Warning" library.
 
-Visit http://jreject.turnwheel.com/ for full documentation
+Visit [jreject.turnwheel.com](http://jreject.turnwheel.com/) for full documentation
 
 Default Options:
-
+-----------------
 	options = {
 		reject : { // Rejection flags for specific browsers
 			all: false, // Covers Everything (Nothing blocked)
