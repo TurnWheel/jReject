@@ -70,7 +70,7 @@
 				path: '/', // Path for the cookie to be saved on (should be root domain in most cases)
 				expires: 0 // Expiration Date (in seconds), 0 (default) means it ends with the current session
 			},
-			imagePath: '/images/', // Path where images are located
+			imagePath: './images/', // Path where images are located
 			overlayBgColor: '#000', // Background color for overlay
 			overlayOpacity: 0.8, // Background transparency (0-1)
 			fadeInTime: 'fast', // Fade in time on open ('slow','medium','fast' or integer in ms)
