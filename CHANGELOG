@@ -1,3 +1,10 @@
+Version 1.0-RC1:
+	- Fix issues with double-digit version numbers in browser agents.
+	  Thanks to Akkuma for the fix. Now using a custom version of Browser plugin.
+	- BREAKING CHANGE: Default image dir now ./images/, instead of /images/.
+	  Could potentially break some legacy installations.
+	- Update Browser Versions
+
 Version 0.7-Beta:
 	- Improve Cookie Management; add cookie option with path and expiration settings
 	- Update default browser versions and links

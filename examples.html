@@ -252,6 +252,18 @@
 
         <strong>options.afterClose(opts)</strong><br />
         <p>Called after rejection popup is closed</p><br />
+			
+		<h2>Debug</h2>
+		<script type="text/javascript">
+		$(function() {
+			$('#b_className').text($.browser.className);
+			$('#b_version').text($.browser.version);
+			$('#b_versionX').text($.browser.versionX);
+		});
+		</script>
+		Class Name: <span id="b_className"></span><br />
+		Browser Version: <span id="b_version"></span><br />
+		Major Version: <span id="b_versionX"></span><br />
 
         <h2>Example Usage</h2>
 
@@ -363,7 +375,6 @@
                 <strong>Note:</strong> To add your own icon, you need to create a 'browser_{browserName}.gif'
                 file and place it in your <em class="option">imagePath</em> directory with the other images.<br />
                 <strong>Image Dimensions:</strong> 100x100<br />
-                <a href="/images/browser_flock.gif" rel="external">Download browser_flock.gif (<?php print bytes2num(filesize(PATH.'images/browser_flock.gif')); ?>)</a>
             </p>
 
             <h4>Example Code</h4>

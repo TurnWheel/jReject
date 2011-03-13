@@ -31,19 +31,19 @@
 			display: [], // What browsers to display and their order (default set below)
 			browserInfo: { // Settings for which browsers to display
 				firefox: {
-					text: 'Firefox 3.5+', // Text below the icon
+					text: 'Firefox 3.6', // Text below the icon
 					url: 'http://www.mozilla.com/firefox/' // URL For icon/text link
 				},
 				safari: {
-					text: 'Safari 4',
+					text: 'Safari 5',
 					url: 'http://www.apple.com/safari/download/'
 				},
 				opera: {
-					text: 'Opera 10.5',
+					text: 'Opera 11',
 					url: 'http://www.opera.com/download/'
 				},
 				chrome: {
-					text: 'Chrome 5',
+					text: 'Chrome 9+',
 					url: 'http://www.google.com/chrome/'
 				},
 				msie: {
@@ -408,12 +408,15 @@
 
 
 /*
-	* jQuery Browser Plugin
-	* Version 2.3
-	* 2008-09-17 19:27:05
+	jQuery Browser Plugin
+	* Version 2.4
+	* 2010-02-03
 	* URL: http://jquery.thewikies.com/browser
 	* Description: jQuery Browser Plugin extends browser detection capabilities and can assign browser selectors to CSS classes.
-	* Author: Nate Cavanaugh, Minhchau Dang, & Jonathan Neal
+	* Author: Nate Cavanaugh, Minhchau Dang, Jonathan Neal, & Gregory Waxman
 	* Copyright: Copyright (c) 2008 Jonathan Neal under dual MIT/GPL license.
+	*
 */
-(function($){$.browserTest=function(a,z){var u='unknown',x='X',m=function(r,h){for(var i=0;i<h.length;i=i+1){r=r.replace(h[i][0],h[i][1]);}return r;},c=function(i,a,b,c){var r={name:m((a.exec(i)||[u,u])[1],b)};r[r.name]=true;r.version=(c.exec(i)||[x,x,x,x])[3];if(r.name.match(/safari/)&&r.version>400){r.version='2.0';}if(r.name==='presto'){r.version=($.browser.version>9.27)?'futhark':'linear_b';}r.versionNumber=parseFloat(r.version,10)||0;r.versionX=(r.version!==x)?(r.version+'').substr(0,1):x;r.className=r.name+r.versionX;return r;};a=(a.match(/Opera|Navigator|Minefield|KHTML|Chrome/)?m(a,[[/(Firefox|MSIE|KHTML,\slike\sGecko|Konqueror)/,''],['Chrome Safari','Chrome'],['KHTML','Konqueror'],['Minefield','Firefox'],['Navigator','Netscape']]):a).toLowerCase();$.browser=$.extend((!z)?$.browser:{},c(a,/(camino|chrome|firefox|netscape|konqueror|lynx|msie|opera|safari)/,[],/(camino|chrome|firefox|netscape|netscape6|opera|version|konqueror|lynx|msie|safari)(\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/));$.layout=c(a,/(gecko|konqueror|msie|opera|webkit)/,[['konqueror','khtml'],['msie','trident'],['opera','presto']],/(applewebkit|rv|konqueror|msie)(\:|\/|\s)([a-z0-9\.]*?)(\;|\)|\s)/);$.os={name:(/(win|mac|linux|sunos|solaris|iphone)/.exec(navigator.platform.toLowerCase())||[u])[0].replace('sunos','solaris')};if(!z){$('html').addClass([$.os.name,$.browser.name,$.browser.className,$.layout.name,$.layout.className].join(' '));}};$.browserTest(navigator.userAgent);})(jQuery);
+(function(b){b.browserTest=function(d,f){var g=function(c,a){for(var e=0;e<a.length;e+=1)c=c.replace(a[e][0],a[e][1]);return c},h=function(c,a,e,i){a={name:g((a.exec(c)||["unknown","unknown"])[1],e)};a[a.name]=true;a.version=a.opera?window.opera.version():(i.exec(c)||["X","X","X","X"])[3];if(/safari/.test(a.name)&&a.version>400)a.version="2.0";else if(a.name==="presto")a.version=b.browser.version>9.27?"futhark":"linear_b";a.versionNumber=parseFloat(a.version,10)||0;c=1;if(a.versionNumber<100&&a.versionNumber>
+9)c=2;a.versionX=a.version!=="X"?a.version.substr(0,c):"X";a.className=a.name+a.versionX;return a};d=(/Opera|Navigator|Minefield|KHTML|Chrome/.test(d)?g(d,[[/(Firefox|MSIE|KHTML,\slike\sGecko|Konqueror)/,""],["Chrome Safari","Chrome"],["KHTML","Konqueror"],["Minefield","Firefox"],["Navigator","Netscape"]]):d).toLowerCase();b.browser=b.extend(!f?b.browser:{},h(d,/(camino|chrome|firefox|netscape|konqueror|lynx|msie|opera|safari)/,[],/(camino|chrome|firefox|netscape|netscape6|opera|version|konqueror|lynx|msie|safari)(\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/));
+b.layout=h(d,/(gecko|konqueror|msie|opera|webkit)/,[["konqueror","khtml"],["msie","trident"],["opera","presto"]],/(applewebkit|rv|konqueror|msie)(\:|\/|\s)([a-z0-9\.]*?)(\;|\)|\s)/);b.os={name:(/(win|mac|linux|sunos|solaris|iphone)/.exec(navigator.platform.toLowerCase())||["unknown"])[0].replace("sunos","solaris")};f||b("html").addClass([b.os.name,b.browser.name,b.browser.className,b.layout.name,b.layout.className].join(" "))};b.browserTest(navigator.userAgent)})(jQuery);
