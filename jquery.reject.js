@@ -1,6 +1,6 @@
 /*
 	* jReject (jQuery Browser Rejection Plugin)
-	* Version 0.7.1
+	* Version 0.7.2
 	* URL: http://jreject.turnwheel.com/
 	* Description: jReject gives you a customizable and easy solution to reject/allowing specific browsers access to your pages
 	* Author: Steven Bower (TurnWheel Designs) http://turnwheel.com/
