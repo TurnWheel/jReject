@@ -1,6 +1,6 @@
 /*
 	* jReject (jQuery Browser Rejection Plugin)
-	* Version 0.7.1
+	* Version 0.7.2
 	* URL: http://jreject.turnwheel.com/
 	* Description: jReject gives you a customizable and easy solution to reject/allowing specific browsers access to your pages
 	* Author: Steven Bower (TurnWheel Designs) http://turnwheel.com/
@@ -31,7 +31,7 @@
 			display: [], // What browsers to display and their order (default set below)
 			browserInfo: { // Settings for which browsers to display
 				firefox: {
-					text: 'Firefox 3.6', // Text below the icon
+					text: 'Firefox 4', // Text below the icon
 					url: 'http://www.mozilla.com/firefox/' // URL For icon/text link
 				},
 				safari: {
@@ -43,11 +43,11 @@
 					url: 'http://www.opera.com/download/'
 				},
 				chrome: {
-					text: 'Chrome 9+',
+					text: 'Chrome 11+',
 					url: 'http://www.google.com/chrome/'
 				},
 				msie: {
-					text: 'Internet Explorer 8',
+					text: 'Internet Explorer 9',
 					url: 'http://www.microsoft.com/windows/Internet-explorer/'
 				},
 				gcf: {
