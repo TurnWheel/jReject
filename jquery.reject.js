@@ -268,7 +268,7 @@
 			padding: 0
 		}).children('li').css({ // Browser list items (li)
 			background: 'transparent url("'+opts.imagePath+'background_browser.gif") no-repeat scroll left top',
-			cusor: 'pointer',
+			cursor: 'pointer',
 			'float': 'left',
 			width: 120,
 			height: 122,
