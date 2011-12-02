@@ -107,7 +107,7 @@ $.reject = function(opts) {
 		// Google Analytics Link Tracking (Optional)
 		// Set to true to enable
 		// Note: Analytics tracking code must be added manually
-		analytics: true,
+		analytics: false,
 	},opts);
 
 	// Set default browsers to display if not already defined
