@@ -102,7 +102,12 @@ $.reject = function(opts) {
 		// Fade in time on open ('slow','medium','fast' or integer in ms)
 		fadeInTime: 'fast',
 		// Fade out time on close ('slow','medium','fast' or integer in ms)
-		fadeOutTime: 'fast'
+		fadeOutTime: 'fast',
+
+		// Google Analytics Link Tracking (Optional)
+		// Set to true to enable
+		// Note: Analytics tracking code must be added manually
+		analytics: true,
 	},opts);
 
 	// Set default browsers to display if not already defined
@@ -255,6 +260,39 @@ $.reject = function(opts) {
 		return true;
 	});
 
+	// Tracks clicks in Google Analytics
+	// in category 'External Links'
+	// only if opts.analytics is enabled
+	var analytics = function (url) {
+		if (!opts.analytics) return false;
+
+		var host = url.split(/\/+/g)[1];
+
+		// Send external link event to Google Analaytics
+		// Attempts both versions of analytics code. (Newest first)
+		try {
+			// Newest analytics code
+			_gaq.push(['_trackEvent','External Links',  host, url]);
+		} catch (e) {
+			try {
+				// Older analytics code
+				pageTracker._trackEvent('External Links', host, url);
+			} catch (e) { };
+		}
+	};
+
+	// Called onClick for browser links (and icons)
+	// Opens link in new window
+	var openBrowserLinks = function(url) {
+		// Send link to analytics if enable
+		analytics(url);
+
+		// Open window, generate random id value
+		window.open(url, 'jr_'+ Math.round(Math.random()*11));
+
+		return false;
+	};
+
 	// Traverse through the DOM and
 	// Apply CSS Rules to elements
 	element.find('#jr_overlay').css({ // Creates 'background' (div)
@@ -333,11 +371,10 @@ $.reject = function(opts) {
 		self.css('background','transparent url('+opts.imagePath+'browser_'+
 				(self.parent('li').attr('id').replace(/jr_/,''))+'.gif)'+
 					' no-repeat scroll left top');
-
-		self.click(function() {
-			window.open($(this).next('div').children('a').attr('href'),'jr_'+
-							Math.round(Math.random()*11));
-			return false;
+		
+		self.click(function () {
+			var url = $(this).next('div').children('a').attr('href');
+			openBrowserLinks(url);
 		});
 	}).siblings('div').css({ // Text under the browser icon (div)
 		color: '#808080',
@@ -358,7 +395,7 @@ $.reject = function(opts) {
 	},function() {
 		$(this).css('textDecoration','none');
 	}).click(function() { // Make links open in new window (a)
-		window.open($(this).attr('href'),'jr_'+Math.round(Math.random()*11));
+		openBrowserLinks($(this).attr('href'));
 		return false;
 	}).parents('#jr_inner').children('#jr_close').css({ // Close window option (div)
 		margin: '0 0 0 50px',
