@@ -106,7 +106,7 @@ Default Options:
 
 		// Google Analytics Link Tracking (Optional)
 		// Set to true to enable
-		// Note: Analytics tracking code must be added manually
+		// Note: Analytics tracking code must be added separately
 		analytics: false
 	};
 
