@@ -39,7 +39,7 @@ Default Options:
 		display: [], // What browsers to display and their order (default set below)
 		browserInfo: { // Settings for which browsers to display
 			firefox: {
-				text: 'Firefox 4', // Text below the icon
+				text: 'Firefox 8', // Text below the icon
 				url: 'http://www.mozilla.com/firefox/' // URL For icon/text link
 			},
 			safari: {
@@ -51,7 +51,7 @@ Default Options:
 				url: 'http://www.opera.com/download/'
 			},
 			chrome: {
-				text: 'Chrome 11+',
+				text: 'Chrome 15',
 				url: 'http://www.google.com/chrome/'
 			},
 			msie: {
@@ -102,8 +102,13 @@ Default Options:
 		// Fade in time on open ('slow','medium','fast' or integer in ms)
 		fadeInTime: 'fast',
 		// Fade out time on close ('slow','medium','fast' or integer in ms)
-		fadeOutTime: 'fast'
-	};
+		fadeOutTime: 'fast',
+
+		// Google Analytics Link Tracking (Optional)
+		// Set to true to enable
+		// Note: Analytics tracking code must be added manually
+		analytics: false
+	}
 
 Run On load (Default Options):
 	$(function() {
