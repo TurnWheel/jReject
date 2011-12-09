@@ -1,3 +1,6 @@
+Version 1.0.0:
+	- Same as 1.0-RC2
+
 Version 1.0-RC2:
 	- Cleanup code to support updated coding standards
 	- Merge browser plugin into main source
