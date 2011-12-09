@@ -308,13 +308,13 @@ $.reject = function(opts) {
 		height: size[1],
 		background: opts.overlayBgColor,
 		opacity: opts.overlayOpacity
-	})
+	});
 
 	// Wrapper for our pop-up (div)
 	element.find('#jr_wrap').css({
 		top: scroll[1]+(size[3]/4),
 		left: scroll[0]
-	})
+	});
 
 	// Wrapper for inner centered content (div)
 	element.find('#jr_inner').css({
@@ -322,10 +322,14 @@ $.reject = function(opts) {
 		maxWidth: displayNum*140,
 		// min/maxWidth not supported by IE
 		width: $.layout.name == 'trident' ? displayNum*155 : 'auto'
-	}).children('ul li').css({ // Browser list items (li)
+	});
+
+	element.find('#jr_inner li').css({ // Browser list items (li)
 		background: 'transparent url("'+opts.imagePath+'background_browser.gif")'+
 					'no-repeat scroll left top'
-	}).children('.jr_icon').each(function() {
+	});
+
+	element.find('#jr_inner li .jr_icon').each(function() {
 		// Dynamically sets the icon background image
 		var self = $(this);
 		self.css('background','transparent url('+opts.imagePath+'browser_'+
@@ -337,7 +341,9 @@ $.reject = function(opts) {
 			var url = $(this).next('div').children('a').attr('href');
 			openBrowserLinks(url);
 		});
-	}).siblings('a').click(function() {
+	});
+
+	element.find('#jr_inner li a').click(function() {
 		openBrowserLinks($(this).attr('href'));
 		return false;
 	});
