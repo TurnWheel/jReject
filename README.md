@@ -108,7 +108,7 @@ Default Options:
 		// Set to true to enable
 		// Note: Analytics tracking code must be added manually
 		analytics: false
-	}
+	};
 
 Run On load (Default Options):
 	$(function() {

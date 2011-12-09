@@ -1,0 +1,34 @@
+{
+	"name": "jReject",
+	"version": "1.0.0",
+	"title": "jReject",
+	"author": {
+		"name": "Steven Bower",
+		"url": "https://github.com/BluSyn"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "MIT-LICENSE.txt"
+		},
+		{
+			"type": "GPL",
+			"url": "GPL-LICENSE.txt"
+		}
+	],
+	"dependencies": {
+		"jquery": ">1.4.0"
+	},
+	"description": "jReject is a easy and usable method of rejecting specific browsers on your site"
+	"keywords": [
+		"browser",
+		"reject",
+		"popup"
+	],
+	"homepage": "https://github.com/TurnWheel/jReject",
+	"files": [
+		"js/jquery.jreject.js",
+		"css/jquery.jreject.css",
+		"images/"
+	]
+}
