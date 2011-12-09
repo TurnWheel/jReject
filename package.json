@@ -28,7 +28,7 @@
 	"homepage": "https://github.com/TurnWheel/jReject",
 	"files": [
 		"js/jquery.jreject.js",
-		"css/jquery.jreject.css",
+		"css/jquery.reject.css",
 		"images/"
 	]
 }
