@@ -1,5 +1,6 @@
 Version 1.0-RC2:
 	- Cleanup code to support updated coding standards
+	- Merge browser plugin into main source
 
 Version 1.0-RC1:
 	- Fix issues with double-digit version numbers in browser agents.

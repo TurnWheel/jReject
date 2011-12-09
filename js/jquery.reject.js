@@ -1,6 +1,6 @@
 /*
  * jReject (jQuery Browser Rejection Plugin)
- * Version 1.0-RC3
+ * Version 1.0-RC2
  * URL: http://jreject.turnwheel.com/
  * Description: jReject is a easy method of rejecting specific browsers on your site
  * Author: Steven Bower (TurnWheel Designs) http://turnwheel.com/
@@ -237,12 +237,15 @@ $.reject = function(opts) {
 	// This function handles closing this reject window
 	// When clicked, fadeOut and remove all elements
 	element.bind('closejr', function() {
-		if (!opts.close) return false; // Make sure the ability to close is set
+		// Make sure the permission to close is granted
+		if (!opts.close) return false;
 
 		// Customized Function
 		if ($.isFunction(opts.beforeClose)) opts.beforeClose(opts);
 
-		$(this).unbind('closejr'); // Remove binding function
+		// Remove binding function so it
+		// doesn't get called more than once
+		$(this).unbind('closejr');
 
 		// Fade out background and modal wrapper
 		$('#jr_overlay,#jr_wrap').fadeOut(opts.fadeOutTime,function() {
@@ -252,19 +255,20 @@ $.reject = function(opts) {
 			if ($.isFunction(opts.afterClose)) opts.afterClose(opts);
 		});
 
-		$('embed, object, select, applet').show(); // Show elements that were hidden
+		// Show elements that were hidden for layering issues
+		$('embed, object, select, applet').show();
 
 		// Set close cookie for next run
 		if (opts.closeCookie) _cookie(COOKIE_NAME,'true');
 		return true;
 	});
 
-	// Tracks clicks in Google Analytics
-	// in category 'External Links'
+	// Tracks clicks in Google Analytics (category 'External Links')
 	// only if opts.analytics is enabled
 	var analytics = function (url) {
 		if (!opts.analytics) return false;
 
+		// Get just the hostname
 		var host = url.split(/\/+/g)[1];
 
 		// Send external link event to Google Analaytics
@@ -283,7 +287,7 @@ $.reject = function(opts) {
 	// Called onClick for browser links (and icons)
 	// Opens link in new window
 	var openBrowserLinks = function(url) {
-		// Send link to analytics if enable
+		// Send link to analytics if enabled
 		analytics(url);
 
 		// Open window, generate random id value
@@ -292,131 +296,59 @@ $.reject = function(opts) {
 		return false;
 	};
 
-	// Traverse through the DOM and
-	// Apply CSS Rules to elements
-	element.find('#jr_overlay').css({ // Creates 'background' (div)
+	/*
+	 * Trverse through element DOM and apply JS variables
+	 * All CSS elements that do not require JS will be in
+	 * css/jquery.jreject.css
+	 */
+
+	// Creates 'background' (div)
+	element.find('#jr_overlay').css({
 		width: size[0],
 		height: size[1],
-		position: 'absolute',
-		top: 0,
-		left: 0,
 		background: opts.overlayBgColor,
-		zIndex: 200,
-		opacity: opts.overlayOpacity,
-		padding: 0,
-		margin: 0
-	}).next('#jr_wrap').css({ // Wrapper for our pop-up (div)
-		position: 'absolute',
-		width: '100%',
+		opacity: opts.overlayOpacity
+	})
+
+	// Wrapper for our pop-up (div)
+	element.find('#jr_wrap').css({
 		top: scroll[1]+(size[3]/4),
-		left: scroll[0],
-		zIndex: 300,
-		textAlign: 'center',
-		padding: 0,
-		margin: 0
-	}).children('#jr_inner').css({ // Wrapper for inner centered content (div)
-		background: '#FFF',
-		border: '1px solid #CCC',
-		fontFamily: '"Lucida Grande","Lucida Sans Unicode",Arial,Verdana,sans-serif',
-		color: '#4F4F4F',
-		margin: '0 auto',
-		position: 'relative',
-		height: 'auto',
+		left: scroll[0]
+	})
+
+	// Wrapper for inner centered content (div)
+	element.find('#jr_inner').css({
 		minWidth: displayNum*100,
 		maxWidth: displayNum*140,
 		// min/maxWidth not supported by IE
-		width: $.layout.name == 'trident' ? displayNum*155 : 'auto',
-		padding: 20,
-		fontSize: 12
-	}).children('#jr_header').css({ // Header (h1)
-		display: 'block',
-		fontSize: '1.3em',
-		marginBottom: '0.5em',
-		color: '#333',
-		fontFamily: 'Helvetica,Arial,sans-serif',
-		fontWeight: 'bold',
-		textAlign: 'left',
-		padding: 5,
-		margin: 0
-	}).nextAll('p').css({ // Paragraphs (p)
-		textAlign: 'left',
-		padding: 5,
-		margin: 0
-	}).siblings('ul').css({ // Browser list (ul)
-		listStyleImage: 'none',
-		listStylePosition: 'outside',
-		listStyleType: 'none',
-		margin: 0,
-		padding: 0
-	}).children('li').css({ // Browser list items (li)
+		width: $.layout.name == 'trident' ? displayNum*155 : 'auto'
+	}).children('ul li').css({ // Browser list items (li)
 		background: 'transparent url("'+opts.imagePath+'background_browser.gif")'+
-					'no-repeat scroll left top',
-		cursor: 'pointer',
-		'float': 'left',
-		width: 120,
-		height: 122,
-		margin: '0 10px 10px 10px',
-		padding: 0,
-		textAlign: 'center'
-	}).children('.jr_icon').css({ // Icons (div)
-		width: 100,
-		height: 100,
-		margin: '1px auto',
-		padding: 0,
-		background: 'transparent no-repeat scroll left top',
-		cursor: 'pointer'
-	}).each(function() { // Dynamically sets the icon background image
+					'no-repeat scroll left top'
+	}).children('.jr_icon').each(function() {
+		// Dynamically sets the icon background image
 		var self = $(this);
 		self.css('background','transparent url('+opts.imagePath+'browser_'+
 				(self.parent('li').attr('id').replace(/jr_/,''))+'.gif)'+
 					' no-repeat scroll left top');
 
+		// Send link clicks to openBrowserLinks
 		self.click(function () {
 			var url = $(this).next('div').children('a').attr('href');
 			openBrowserLinks(url);
 		});
-	}).siblings('div').css({ // Text under the browser icon (div)
-		color: '#808080',
-		fontSize: '0.8em',
-		height: 18,
-		lineHeight: '17px',
-		margin: '1px auto',
-		padding: 0,
-		width: 118,
-		textAlign: 'center'
-	}).children('a').css({ // Text link (a)
-		color: '#333',
-		textDecoration: 'none',
-		padding: 0,
-		margin: 0
-	}).hover(function() { // Underline effect (a:hover)
-		$(this).css('textDecoration','underline');
-	},function() {
-		$(this).css('textDecoration','none');
-	}).click(function() { // Make links open in new window (a)
+	}).siblings('a').click(function() {
 		openBrowserLinks($(this).attr('href'));
 		return false;
-	}).parents('#jr_inner').children('#jr_close').css({ // Close window option (div)
-		margin: '0 0 0 50px',
-		clear: 'both',
-		textAlign: 'left',
-		padding: 0,
-		margin: 0
-	}).children('a').css({ // Close window link (a)
-		color: '#000',
-		display: 'block',
-		width: 'auto',
-		margin: 0,
-		padding: 0,
-		textDecoration: 'underline'
-	}).click(function() { // Bind closing event
+	});
+
+	// Bind closing event to trigger closejr
+	// to be consistant with ESC key close function
+	element.find('#jr_close a').click(function() {
 		$(this).trigger('closejr');
 
 		// If plain anchor is set, return false so there is no page jump
 		if (opts.closeURL === '#') return false;
-	}).nextAll('p').css({ // Add padding to close link/text
-		padding: '10px 0 0 0',
-		margin: 0
 	});
 
 	// Set focus (fixes ESC key issues with forms and other focus bugs)
@@ -433,12 +365,18 @@ $.reject = function(opts) {
 		var size = _pageSize(); // Get size
 
 		// Update overlay dimensions based on page size
-		$('#jr_overlay').css({ width: size[0],height: size[1] });
+		$('#jr_overlay').css({
+			width: size[0],
+			height: size[1]
+		});
 
 		var scroll = _scrollSize(); // Get page scroll
 
 		// Update modal position based on scroll
-		$('#jr_wrap').css({ top: scroll[1] + (size[3]/4),left: scroll[0] });
+		$('#jr_wrap').css({
+			top: scroll[1] + (size[3]/4),
+			left: scroll[0]
+		});
 	});
 
 	// Add optional ESC Key functionality
