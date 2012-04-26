@@ -256,7 +256,7 @@ $.reject = function(opts) {
 		});
 
 		// Show elements that were hidden for layering issues
-		$('embed, object, select, applet').show();
+		$('embed.jreject-hidden, object.jreject-hidden, select.jreject-hidden, applet.jreject-hidden').show().removeClass("jreject-hidden");
 
 		// Set close cookie for next run
 		if (opts.closeCookie) _cookie(COOKIE_NAME,'true');
@@ -361,7 +361,11 @@ $.reject = function(opts) {
 	$('#jr_overlay').focus();
 
 	// Hide elements that won't display properly
-	$('embed, object, select, applet').hide();
+	$('embed, object, select, applet').each(function() {
+    if ($(this).is(":visible")) {
+      $(this).hide().addClass("jreject-hidden");
+    }
+  });
 
 	// Append element to body of document to display
 	$('body').append(element.hide().fadeIn(opts.fadeInTime));
