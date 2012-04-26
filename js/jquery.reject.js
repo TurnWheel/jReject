@@ -38,7 +38,7 @@ $.reject = function(opts) {
 		display: [], // What browsers to display and their order (default set below)
 		browserInfo: { // Settings for which browsers to display
 			firefox: {
-				text: 'Firefox 8', // Text below the icon
+				text: 'Firefox 12', // Text below the icon
 				url: 'http://www.mozilla.com/firefox/' // URL For icon/text link
 			},
 			safari: {
@@ -50,7 +50,7 @@ $.reject = function(opts) {
 				url: 'http://www.opera.com/download/'
 			},
 			chrome: {
-				text: 'Chrome 15',
+				text: 'Chrome 18',
 				url: 'http://www.google.com/chrome/'
 			},
 			msie: {
@@ -256,7 +256,7 @@ $.reject = function(opts) {
 		});
 
 		// Show elements that were hidden for layering issues
-		$('embed, object, select, applet').show();
+		$('embed.jreject-hidden, object.jreject-hidden, select.jreject-hidden, applet.jreject-hidden').show().removeClass("jreject-hidden");
 
 		// Set close cookie for next run
 		if (opts.closeCookie) _cookie(COOKIE_NAME,'true');
@@ -361,7 +361,11 @@ $.reject = function(opts) {
 	$('#jr_overlay').focus();
 
 	// Hide elements that won't display properly
-	$('embed, object, select, applet').hide();
+	$('embed, object, select, applet').each(function() {
+    if ($(this).is(":visible")) {
+      $(this).hide().addClass("jreject-hidden");
+    }
+  });
 
 	// Append element to body of document to display
 	$('body').append(element.hide().fadeIn(opts.fadeInTime));
