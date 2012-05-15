@@ -522,7 +522,7 @@ var _scrollSize = function() {
 		], /(applewebkit|rv|konqueror|msie)(\:|\/|\s)([a-z0-9\.]*?)(\;|\)|\s)/);
 
 		$.os = {
-			name: (/(win|mac|linux|sunos|solaris|iphone)/.
+			name: (/(win|mac|linux|sunos|solaris|iphone|ipad)/.
 					exec(navigator.platform.toLowerCase()) || [u])[0]
 						.replace('sunos', 'solaris')
 		};
