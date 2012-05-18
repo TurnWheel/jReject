@@ -8,7 +8,7 @@
  */
 
 (function($) {
-$.reject = function(opts) {
+$.reject = function(options) {
   var opts = $.extend(true,{
     reject : { // Rejection flags for specific browsers
       all: false, // Covers Everything (Nothing blocked)
@@ -110,7 +110,7 @@ $.reject = function(opts) {
 
     // Should the browser options be shown?
     showBrowsers: true
-  },opt);
+  },options);
 
   // Set default browsers to display if not already defined
   if (opts.display.length < 1)
@@ -155,10 +155,10 @@ $.reject = function(opts) {
         var expires = '';
 
         // Check if we need to set an expiration date
-        if (opts.cookieSettings.expires != 0) {
+        if (opts.cookieSettings.expires !== 0) {
           var date = new Date();
           date.setTime(date.getTime()+(opts.cookieSettings.expires));
-          var expires = "; expires="+date.toGMTString();
+          expires = "; expires="+date.toGMTString();
         }
 
         // Get path from settings
@@ -166,13 +166,13 @@ $.reject = function(opts) {
 
         // Set Cookie with parameters
         document.cookie = name+'='+
-          encodeURIComponent(value == null ? '' : value)+expires+
+          encodeURIComponent((!value) ? '' : value)+expires+
           '; path='+path;
       }
       else { // Get cookie value
         var cookie,val = null;
 
-        if (document.cookie && document.cookie != '') {
+        if (document.cookie && document.cookie !== '') {
           var cookies = document.cookie.split(';');
 
           // Loop through all cookie values
@@ -191,10 +191,11 @@ $.reject = function(opts) {
 
         return val; // Return cookie value
       }
+      return null;
     };
 
     // If cookie is set, return false and don't display rejection
-    if (_cookie(COOKIE_NAME) != null) return false;
+    if (_cookie(COOKIE_NAME)) return false;
   }
 
   // Load background overlay (jr_overlay) + Main wrapper (jr_wrap) +
@@ -276,8 +277,7 @@ $.reject = function(opts) {
     });
 
     // Show elements that were hidden for layering issues
-    $('embed.jr_hidden, object.jr_hidden, select.jr_hidden, applet.jr_hidden')
-      .show().removeClass('jr_hidden');
+    $('embed.jr_hidden, object.jr_hidden, select.jr_hidden, applet.jr_hidden').show().removeClass('jr_hidden');
 
     // Set close cookie for next run
     if (opts.closeCookie) _cookie(COOKIE_NAME,'true');
@@ -301,8 +301,9 @@ $.reject = function(opts) {
       try {
         // Older analytics code
         pageTracker._trackEvent('External Links', host, url);
-      } catch (e) { };
+      } catch (e) { }
     }
+    return null;
   };
 
   // Called onClick for browser links (and icons)
@@ -521,19 +522,19 @@ var _scrollSize = function() {
         return r;
       };
 
-    a = (/Opera|Navigator|Minefield|KHTML|Chrome/.test(a) ? m(a, [
-      [/(Firefox|MSIE|KHTML,\slike\sGecko|Konqueror)/, ''],
-      ['Chrome Safari', 'Chrome'],
-      ['KHTML', 'Konqueror'],
-      ['Minefield', 'Firefox'],
-      ['Navigator', 'Netscape']
-    ]) : a).toLowerCase();
+    a = (/Opera|Navigator|Minefield|KHTML|Chrome/.test(a) ? m(a,
+        [
+          [(/(Firefox|MSIE|KHTML,\slike\sGecko|Konqueror)/), ''],
+          ['Chrome Safari', 'Chrome'],
+          ['KHTML', 'Konqueror'],
+          ['Minefield', 'Firefox'],
+          ['Navigator', 'Netscape']
+        ]) : a).toLowerCase();
 
     $.browser = $.extend((!z) ? $.browser : {}, c(a,
-      /(camino|chrome|firefox|netscape|konqueror|lynx|msie|opera|safari)/, [],
-      /(camino|chrome|firefox|netscape|netscape6|opera|version|konqueror|lynx|msie|safari)(\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/
-      )
-    );
+                                                  /(camino|chrome|firefox|netscape|konqueror|lynx|msie|opera|safari)/,
+                                                  [],
+                                                  /(camino|chrome|firefox|netscape|netscape6|opera|version|konqueror|lynx|msie|safari)(\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/));
 
     $.layout = c(a, /(gecko|konqueror|msie|opera|webkit)/, [
       ['konqueror', 'khtml'],
@@ -543,8 +544,7 @@ var _scrollSize = function() {
 
     $.os = {
       name: (/(win|mac|linux|sunos|solaris|iphone|ipad)/.
-          exec(navigator.platform.toLowerCase()) || [u])[0]
-            .replace('sunos', 'solaris')
+          exec(navigator.platform.toLowerCase()) || [u])[0].replace('sunos', 'solaris')
     };
 
     if (!z) {
