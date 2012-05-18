@@ -106,8 +106,11 @@ $.reject = function(opts) {
     // Google Analytics Link Tracking (Optional)
     // Set to true to enable
     // Note: Analytics tracking code must be added separately
-    analytics: false
-  },opts);
+    analytics: false,
+
+    // Should the browser options be shown?
+    showBrowsers: true
+  },opt);
 
   // Set default browsers to display if not already defined
   if (opts.display.length < 1)
@@ -197,29 +200,32 @@ $.reject = function(opts) {
   // Load background overlay (jr_overlay) + Main wrapper (jr_wrap) +
   // Inner Wrapper (jr_inner) w/ opts.header (jr_header) +
   // opts.paragraph1/opts.paragraph2 if set
+
   var html = '<div id="jr_overlay"></div><div id="jr_wrap"><div id="jr_inner">'+
     '<h1 id="jr_header">'+opts.header+'</h1>'+
     (opts.paragraph1 === '' ? '' : '<p>'+opts.paragraph1+'</p>')+
     (opts.paragraph2 === '' ? '' : '<p>'+opts.paragraph2+'</p>')+'<ul>';
 
-  var displayNum = 0; // Tracks number of browsers being displayed
-  // Generate the browsers to display
-  for (var x in opts.display) {
-    var browser = opts.display[x]; // Current Browser
-    var info = opts.browserInfo[browser] || false; // Browser Information
+  if (opts.showBrowsers) {
+    var displayNum = 0; // Tracks number of browsers being displayed
+    // Generate the browsers to display
+    for (var x in opts.display) {
+      var browser = opts.display[x]; // Current Browser
+      var info = opts.browserInfo[browser] || false; // Browser Information
 
-    // If no info exists for this browser
-    // or if this browser is not suppose to display to this user
-    if (!info || (info['allow'] != undefined && !browserCheck(info['allow']))) {
-      continue;
+      // If no info exists for this browser
+      // or if this browser is not suppose to display to this user
+      if (!info || (info['allow'] != undefined && !browserCheck(info['allow']))) {
+        continue;
+      }
+
+      var url = info.url || '#'; // URL to link text/icon to
+      // Generate HTML for this browser option
+      html += '<li id="jr_'+browser+'"><div class="jr_icon"></div>'+
+          '<div><a href="'+url+'">'+(info.text || 'Unknown')+'</a>'+
+          '</div></li>';
+      ++displayNum; // Increment number of browser being displayed
     }
-
-    var url = info.url || '#'; // URL to link text/icon to
-    // Generate HTML for this browser option
-    html += '<li id="jr_'+browser+'"><div class="jr_icon"></div>'+
-        '<div><a href="'+url+'">'+(info.text || 'Unknown')+'</a>'+
-        '</div></li>';
-    ++displayNum; // Increment number of browser being displayed
   }
 
   // Close list and #jr_list
