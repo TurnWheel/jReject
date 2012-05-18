@@ -200,13 +200,27 @@ $.reject = function(opts) {
   // Load background overlay (jr_overlay) + Main wrapper (jr_wrap) +
   // Inner Wrapper (jr_inner) w/ opts.header (jr_header) +
   // opts.paragraph1/opts.paragraph2 if set
+  var message = {
+    header: opts.header,
+    paragraph1: opts.paragraph1,
+    paragraph2: opts.paragraph2,
+    showBrowsers: opts.showBrowsers
+  };
+  if ($.isFunction(opts.messageForSpecificBrowser)) {
+    message = opts.messageForSpecificBrowser({
+      os: $.os.name,
+      layout: $.layout.name,
+      browser: $.browser.name,
+      className: $.browser.className
+    }, opts) || message;
+  }
 
   var html = '<div id="jr_overlay"></div><div id="jr_wrap"><div id="jr_inner">'+
-    '<h1 id="jr_header">'+opts.header+'</h1>'+
-    (opts.paragraph1 === '' ? '' : '<p>'+opts.paragraph1+'</p>')+
-    (opts.paragraph2 === '' ? '' : '<p>'+opts.paragraph2+'</p>')+'<ul>';
+    '<h1 id="jr_header">'+message.header+'</h1>'+
+    (message.paragraph1 === '' ? '' : '<p>'+message.paragraph1+'</p>')+
+    (message.paragraph2 === '' ? '' : '<p>'+message.paragraph2+'</p>')+'<ul>';
 
-  if (opts.showBrowsers) {
+  if (message.showBrowsers) {
     var displayNum = 0; // Tracks number of browsers being displayed
     // Generate the browsers to display
     for (var x in opts.display) {
