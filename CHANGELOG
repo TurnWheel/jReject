@@ -1,3 +1,8 @@
+Version 1.0.1
+	- Supports custom messages on a specific OS reject
+	- Supports not showing the browser download links (useless on iOS)
+	- Passes JSLint
+
 Version 1.0.0:
 	- Same as 1.0-RC2
 
