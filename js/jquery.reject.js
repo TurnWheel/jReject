@@ -115,7 +115,7 @@ $.reject = function(options) {
 		opts.display = ['firefox','chrome','msie','safari','opera','gcf'];
 
 	// beforeRject: Customized Function
-	if ($.isFunction(opts.beforeReject)) opts.beforeReject(opts);
+	if ($.isFunction(opts.beforeReject)) opts.beforeReject();
 
 	// Disable 'closeESC' if closing is disabled (mutually exclusive)
 	if (!opts.close) opts.closeESC = false;
@@ -137,7 +137,7 @@ $.reject = function(options) {
 	// Determine if we need to display rejection for this browser, or exit
 	if (!browserCheck(opts.reject)) {
 		// onFail: Customized Function
-		if ($.isFunction(opts.onFail)) opts.onFail(opts);
+		if ($.isFunction(opts.onFail)) opts.onFail();
 		return false;
 	}
 
@@ -248,7 +248,7 @@ $.reject = function(options) {
 		if (!opts.close) return false;
 
 		// Customized Function
-		if ($.isFunction(opts.beforeClose)) opts.beforeClose(opts);
+		if ($.isFunction(opts.beforeClose)) opts.beforeClose();
 
 		// Remove binding function so it
 		// doesn't get called more than once
@@ -259,7 +259,7 @@ $.reject = function(options) {
 			$(this).remove(); // Remove element from DOM
 
 			// afterClose: Customized Function
-			if ($.isFunction(opts.afterClose)) opts.afterClose(opts);
+			if ($.isFunction(opts.afterClose)) opts.afterClose();
 		});
 
 		// Show elements that were hidden for layering issues
@@ -406,7 +406,7 @@ $.reject = function(options) {
 	}
 
 	// afterReject: Customized Function
-	if ($.isFunction(opts.afterReject)) opts.afterReject(opts);
+	if ($.isFunction(opts.afterReject)) opts.afterReject();
 
 	return true;
 };

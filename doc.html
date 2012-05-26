@@ -134,6 +134,22 @@
 
 			return false;
 		});
+
+		$('#demo8').click(function() {
+			$.reject({
+				reject: { all: true }, // Reject all renderers for demo
+				beforeReject: function() {
+					if ($.browser.name === 'chrome') {
+						this.display = ['firefox','opera'];
+					}
+					if ($.os.name === 'iphone' || $.os.name === 'ipad') {
+						this.browserShow = false;
+					}
+				}
+			});
+
+			return false;
+		});
 	});
 	</script>
 </head>
@@ -280,31 +296,38 @@ options = {
 		</div><br />
 
 		<h3>Optional Event Methods</h3>
-		<strong>options.beforeReject(opts)</strong><br />
+		<strong>options.beforeReject()</strong><br />
 		<p>Called before rejection is determined.</p><br />
 
-		<strong>options.afterReject(opts)</strong><br />
+		<strong>options.afterReject()</strong><br />
 		<p>Called after rejection window has been created, for browsers that matched the rejection settings.</p><br />
 
-		<strong>options.onFail(opts)</strong><br />
+		<strong>options.onFail()</strong><br />
 		<p>Called if the browser does NOT meet the rejection requirements</p><br />
 
-		<strong>options.beforeClose(opts)</strong><br />
+		<strong>options.beforeClose()</strong><br />
 		<p>Called after close button is clicked, but before popup is actually closed.</p><br />
 
-		<strong>options.afterClose(opts)</strong><br />
+		<strong>options.afterClose()</strong><br />
 		<p>Called after rejection popup is closed</p><br />
+
+		<p>
+			<strong>Note:</strong> All callbacks can access and edit options by using <em>this</em><br />
+			View <a href="#demo8">Demo #8</a> as an example
+		</p>
 
 		<h2>Browser Plugin Options</h2>
 		<script type="text/javascript">
 		$(function() {
 			$('#b_className').text($.browser.className);
+			$('#b_name').text($.browser.name);
 			$('#b_version').text($.browser.version);
 			$('#b_versionX').text($.browser.versionX);
 			$('#b_osname').text($.os.name);
 		});
 		</script>
 		$.browser.className = <strong id="b_className"></strong><br />
+		$.browser.name = <strong id="b_name"></strong><br />
 		$,browser.version = <strong id="b_version"></strong><br />
 		$.browser.versionX = <strong id="b_versionX"></strong><br />
 		$.os.name = <strong id="b_osname"></strong><br />
@@ -494,6 +517,36 @@ options = {
 				close: false, // Prevent closing of window
 				paragraph1: 'You will not be able to close this window', // Warning about closing
 				paragraph2: 'To exit, you must &lt;a href=&quot;javascript:window.location=window.location.pathname;&quot;&gt;refresh the page&lt;/a&gt;' // Display refresh link
+			});
+
+			return false;
+		});
+			</pre>
+		</div>
+
+		<div class="example">
+			<h3>Customize by Browser</h3>
+			<a href="#" id="demo8" class="demo">Run Demo</a><br />
+
+			<p>
+				This example uses the <em>beforeReject</em> callback to change options by browser.<br />
+				In chrome, only FireFox and Opera options will be displayed. iPhone/iPad displays no browser options
+			</p>
+
+			<h4>Example Code</h4>
+			<pre name="code" class="javascript">
+
+		$('#demo8').click(function() {
+			$.reject({
+				reject: { all: true }, // Reject all renderers for demo
+				beforeReject: function() {
+					if ($.browser.name === 'chrome') {
+						this.display = ['firefox','opera'];
+					}
+					if ($.os.name === 'iphone' || $.os.name === 'ipad') {
+						this.browserShow = false;
+					}
+				}
 			});
 
 			return false;
