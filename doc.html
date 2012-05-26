@@ -144,6 +144,7 @@
 					}
 					if ($.os.name === 'iphone' || $.os.name === 'ipad') {
 						this.browserShow = false;
+						this.paragraph2 = '';
 					}
 				}
 			});
@@ -220,6 +221,7 @@ options = {
 			*/
 	},
 	display: [], // What browsers to display and their order (default set below)
+	browserShow: true, // Should the browser options be shown?
 	browserInfo: { // Settings for which browsers to display
 		firefox: {
 			text: 'Firefox 8', // Text below the icon
@@ -545,6 +547,7 @@ options = {
 					}
 					if ($.os.name === 'iphone' || $.os.name === 'ipad') {
 						this.browserShow = false;
+						this.paragraph2 = '';
 					}
 				}
 			});
