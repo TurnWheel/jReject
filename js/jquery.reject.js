@@ -36,6 +36,7 @@ $.reject = function(opts) {
 			 */
 		},
 		display: [], // What browsers to display and their order (default set below)
+		browserShow: true, // Should the browser options be shown?
 		browserInfo: { // Settings for which browsers to display
 			firefox: {
 				text: 'Firefox 12', // Text below the icon
@@ -200,30 +201,36 @@ $.reject = function(opts) {
 	var html = '<div id="jr_overlay"></div><div id="jr_wrap"><div id="jr_inner">'+
 		'<h1 id="jr_header">'+opts.header+'</h1>'+
 		(opts.paragraph1 === '' ? '' : '<p>'+opts.paragraph1+'</p>')+
-		(opts.paragraph2 === '' ? '' : '<p>'+opts.paragraph2+'</p>')+'<ul>';
+		(opts.paragraph2 === '' ? '' : '<p>'+opts.paragraph2+'</p>');
 
-	var displayNum = 0; // Tracks number of browsers being displayed
-	// Generate the browsers to display
-	for (var x in opts.display) {
-		var browser = opts.display[x]; // Current Browser
-		var info = opts.browserInfo[browser] || false; // Browser Information
+	if (opts.browserShow) {
+		html += '<ul>';
 
-		// If no info exists for this browser
-		// or if this browser is not suppose to display to this user
-		if (!info || (info['allow'] != undefined && !browserCheck(info['allow']))) {
-			continue;
+		var displayNum = 0; // Tracks number of browsers being displayed
+		// Generate the browsers to display
+		for (var x in opts.display) {
+			var browser = opts.display[x]; // Current Browser
+			var info = opts.browserInfo[browser] || false; // Browser Information
+
+			// If no info exists for this browser
+			// or if this browser is not suppose to display to this user
+			if (!info || (info['allow'] != undefined && !browserCheck(info['allow']))) {
+				continue;
+			}
+
+			var url = info.url || '#'; // URL to link text/icon to
+			// Generate HTML for this browser option
+			html += '<li id="jr_'+browser+'"><div class="jr_icon"></div>'+
+					'<div><a href="'+url+'">'+(info.text || 'Unknown')+'</a>'+
+					'</div></li>';
+			++displayNum; // Increment number of browser being displayed
 		}
 
-		var url = info.url || '#'; // URL to link text/icon to
-		// Generate HTML for this browser option
-		html += '<li id="jr_'+browser+'"><div class="jr_icon"></div>'+
-				'<div><a href="'+url+'">'+(info.text || 'Unknown')+'</a>'+
-				'</div></li>';
-		++displayNum; // Increment number of browser being displayed
+		html += '</ul>';
 	}
 
 	// Close list and #jr_list
-	html += '</ul><div id="jr_close">'+
+	html += '<div id="jr_close">'+
 	// Display close links/message if set
 	(opts.close ? '<a href="'+opts.closeURL+'">'+opts.closeLink+'</a>'+
 		'<p>'+opts.closeMessage+'</p>' : '')+'</div>'+
