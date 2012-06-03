@@ -37,9 +37,10 @@ Default Options:
 			 */
 		},
 		display: [], // What browsers to display and their order (default set below)
+		browserShow: true, // Should the browser options be shown?
 		browserInfo: { // Settings for which browsers to display
 			firefox: {
-				text: 'Firefox 8', // Text below the icon
+				text: 'Firefox 12', // Text below the icon
 				url: 'http://www.mozilla.com/firefox/' // URL For icon/text link
 			},
 			safari: {
@@ -51,7 +52,7 @@ Default Options:
 				url: 'http://www.opera.com/download/'
 			},
 			chrome: {
-				text: 'Chrome 15',
+				text: 'Chrome 18',
 				url: 'http://www.google.com/chrome/'
 			},
 			msie: {
