@@ -155,7 +155,7 @@ $.reject = function(options) {
 				// Check if we need to set an expiration date
 				if (opts.cookieSettings.expires !== 0) {
 					var date = new Date();
-					date.setTime(date.getTime()+(opts.cookieSettings.expires));
+					date.setTime(date.getTime()+(opts.cookieSettings.expires*1000));
 					expires = "; expires="+date.toGMTString();
 				}
 
