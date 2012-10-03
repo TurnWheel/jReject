@@ -47,7 +47,7 @@ $.reject = function(options) {
 				url: 'http://www.apple.com/safari/download/'
 			},
 			opera: {
-				text: 'Opera 11',
+				text: 'Opera 12',
 				url: 'http://www.opera.com/download/'
 			},
 			chrome: {
