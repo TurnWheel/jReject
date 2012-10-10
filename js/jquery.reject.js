@@ -39,7 +39,7 @@ $.reject = function(options) {
 		browserShow: true, // Should the browser options be shown?
 		browserInfo: { // Settings for which browsers to display
 			firefox: {
-				text: 'Firefox 15', // Text below the icon
+				text: 'Firefox 16', // Text below the icon
 				url: 'http://www.mozilla.com/firefox/' // URL For icon/text link
 			},
 			safari: {
