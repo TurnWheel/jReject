@@ -111,14 +111,19 @@ $.reject = function(options) {
 	}, options);
 
 	// Set default browsers to display if not already defined
-	if (opts.display.length < 1)
+	if (opts.display.length < 1) {
 		opts.display = ['firefox','chrome','msie','safari','opera','gcf'];
+	}
 
 	// beforeRject: Customized Function
-	if ($.isFunction(opts.beforeReject)) opts.beforeReject();
+	if ($.isFunction(opts.beforeReject)) {
+		opts.beforeReject();
+	}
 
 	// Disable 'closeESC' if closing is disabled (mutually exclusive)
-	if (!opts.close) opts.closeESC = false;
+	if (!opts.close) {
+		opts.closeESC = false;
+	}
 
 	// This function parses the advanced browser options
 	var browserCheck = function(settings) {
@@ -137,7 +142,10 @@ $.reject = function(options) {
 	// Determine if we need to display rejection for this browser, or exit
 	if (!browserCheck(opts.reject)) {
 		// onFail: Customized Function
-		if ($.isFunction(opts.onFail)) opts.onFail();
+		if ($.isFunction(opts.onFail)) {
+			opts.onFail();
+		}
+
 		return false;
 	}
 
@@ -149,6 +157,7 @@ $.reject = function(options) {
 		// Cookies Function: Handles creating/retrieving/deleting cookies
 		// Cookies are only used for opts.closeCookie parameter functionality
 		var _cookie = function(name, value) {
+			// Save cookie
 			if (typeof value != 'undefined') {
 				var expires = '';
 
@@ -166,8 +175,11 @@ $.reject = function(options) {
 				document.cookie = name+'='+
 					encodeURIComponent((!value) ? '' : value)+expires+
 					'; path='+path;
+
+				return true;
 			}
-			else { // Get cookie value
+			// Get cookie
+			else {
 				var cookie,val = null;
 
 				if (document.cookie && document.cookie !== '') {
@@ -187,12 +199,15 @@ $.reject = function(options) {
 					}
 				}
 
-				return val; // Return cookie value
+				// Returns cookie value
+				return val;
 			}
 		};
 
 		// If cookie is set, return false and don't display rejection
-		if (_cookie(COOKIE_NAME)) return false;
+		if (_cookie(COOKIE_NAME)) {
+			return false;
+		}
 	}
 
 	// Load background overlay (jr_overlay) + Main wrapper (jr_wrap) +
@@ -206,7 +221,8 @@ $.reject = function(options) {
 	if (opts.browserShow) {
 		html += '<ul>';
 
-		var displayNum = 0; // Tracks number of browsers being displayed
+		var displayNum = 0;
+
 		// Generate the browsers to display
 		for (var x in opts.display) {
 			var browser = opts.display[x]; // Current Browser
@@ -219,11 +235,13 @@ $.reject = function(options) {
 			}
 
 			var url = info.url || '#'; // URL to link text/icon to
+
 			// Generate HTML for this browser option
 			html += '<li id="jr_'+browser+'"><div class="jr_icon"></div>'+
 					'<div><a href="'+url+'">'+(info.text || 'Unknown')+'</a>'+
 					'</div></li>';
-			++displayNum; // Increment number of browser being displayed
+
+			++displayNum;
 		}
 
 		html += '</ul>';
@@ -245,10 +263,14 @@ $.reject = function(options) {
 	// When clicked, fadeOut and remove all elements
 	element.bind('closejr', function() {
 		// Make sure the permission to close is granted
-		if (!opts.close) return false;
+		if (!opts.close) {
+			return false;
+		}
 
 		// Customized Function
-		if ($.isFunction(opts.beforeClose)) opts.beforeClose();
+		if ($.isFunction(opts.beforeClose)) {
+			opts.beforeClose();
+		}
 
 		// Remove binding function so it
 		// doesn't get called more than once
@@ -259,7 +281,9 @@ $.reject = function(options) {
 			$(this).remove(); // Remove element from DOM
 
 			// afterClose: Customized Function
-			if ($.isFunction(opts.afterClose)) opts.afterClose();
+			if ($.isFunction(opts.afterClose)) {
+				opts.afterClose();
+			}
 		});
 
 		// Show elements that were hidden for layering issues
@@ -267,7 +291,10 @@ $.reject = function(options) {
 		$(elmhide).show().removeClass('jr_hidden');
 
 		// Set close cookie for next run
-		if (opts.closeCookie) _cookie(COOKIE_NAME,'true');
+		if (opts.closeCookie) {
+			_cookie(COOKIE_NAME, 'true');
+		}
+
 		return true;
 	});
 
@@ -283,7 +310,7 @@ $.reject = function(options) {
 		// Attempts both versions of analytics code. (Newest first)
 		try {
 			// Newest analytics code
-			_gaq.push(['_trackEvent','External Links',  host, url]);
+			_gaq.push(['_trackEvent', 'External Links',  host, url]);
 		} catch (e) {
 			try {
 				// Older analytics code
@@ -362,7 +389,9 @@ $.reject = function(options) {
 		$(this).trigger('closejr');
 
 		// If plain anchor is set, return false so there is no page jump
-		if (opts.closeURL === '#') return false;
+		if (opts.closeURL === '#') {
+			return false;
+		}
 	});
 
 	// Set focus (fixes ESC key issues with forms and other focus bugs)
@@ -401,12 +430,16 @@ $.reject = function(options) {
 	if (opts.closeESC) {
 		$(document).bind('keydown',function(event) {
 			// ESC = Keycode 27
-			if (event.keyCode == 27) element.trigger('closejr');
+			if (event.keyCode == 27) {
+				element.trigger('closejr');
+			}
 		});
 	}
 
 	// afterReject: Customized Function
-	if ($.isFunction(opts.afterReject)) opts.afterReject();
+	if ($.isFunction(opts.afterReject)) {
+		opts.afterReject();
+	}
 
 	return true;
 };
@@ -457,7 +490,7 @@ var _scrollSize = function() {
 
 /*
  * jQuery Browser Plugin
- * Version 2.4 / jReject 1.0.0
+ * Version 2.4 / jReject 1.0
  * URL: http://jquery.thewikies.com/browser
  * Description: jQuery Browser Plugin extends browser detection capabilities and
  * can assign browser selectors to CSS classes.
@@ -499,9 +532,11 @@ var _scrollSize = function() {
 
 				r.versionNumber = parseFloat(r.version, 10) || 0;
 				var minorStart = 1;
+
 				if (r.versionNumber < 100 && r.versionNumber > 9) {
 					minorStart = 2;
 				}
+
 				r.versionX = (r.version !== x) ? r.version.substr(0, minorStart) : x;
 				r.className = r.name + r.versionX;
 
