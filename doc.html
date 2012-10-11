@@ -12,30 +12,38 @@
 		padding: 0;
 	}
 	body {
-		background: #f4f4f4;
+		background: #f7f7f7;
 		font-size: 14px;
 		font-family: 'Arial', sans-serif;
 	}
 	a {
 		text-decoration: none;
-		color: #5DB0E6;
+		color: #025167;
 	}
 	a:hover {
 		text-decoration: underline;
 	}
 	a:visited {
-		color: #5DB0E6;
+		color: #025167;
 	}
 	a[rel="external"] {
 		font-weight: bold;
+	}
+	strong {
+		color: #262626;
+		text-decoration: underline;
 	}
 	h1 {
 		color: #5DB0E6;
 		margin-bottom: 20px;
 	}
 	h2 {
-		color: #8f919c;
+		color: #a61700;
 		margin: 20px 0;
+	}
+	h3 {
+		color: #0082a9;
+		text-decoration: underline;
 	}
 	hr {
 		outline: 0;
@@ -59,7 +67,7 @@
 	#wrapper {
 		margin: 0 auto;
 		width: 960px;
-		border: 1px dashed #088de0;
+		border: 1px solid #088de0;
 		border-top: 0;
 		border-bottom: 0;
 	}
@@ -70,8 +78,8 @@
 	}
 	.box, pre.javascript {
 		width: 90%;
-		border: 1px dashed #acacac;
-		background: #f6f6f6;
+		border: 1px dashed #0082a9;
+		background: #cecccc;
 		padding: 10px;
 	}
 	.box {
@@ -162,7 +170,7 @@
 				reject: { all: true }, // Reject all renderers for demo
 				header: 'Your browser is not supported here', // Header Text
 				paragraph1: 'You are currently using an unsupported browser', // Paragraph 1
-				paragraph2: 'Please install one of the many optional browsers below to proceed', // Paragraph 2
+				paragraph2: 'Please install one of the many optional browsers below to proceed',
 				closeMessage: 'Close this window at your own demise!' // Message below close window link
 			}); // Customized Text
 
@@ -242,7 +250,7 @@
 			jReject is a simple, light-weight library designed to
 			display a popup based on a the browser, specific browser version,
 			specific platforms, or rendering engine. Provides full customization
-			of the popup. Uses a smll CSS file, and can easily be used on page load
+			of the popup. Uses a small CSS file, and can easily be used on page load
 			or during a specific page event. Also provides a flexible way to beautifully
 			and cleanly display custom browser alternatives in the popup.
 		</p>
@@ -428,11 +436,10 @@ options = {
 			<a href="#" id="demo1" class="demo">Run Demo</a><br />
 
 			<p>
-				If nothing happened when you ran this demo, that is because you are not using IE6!.
+				If nothing happened when you ran this demo, that is because you are not using IE6!<br />
 				By default (no settings specified) the reject function only rejects IE5 and IE6.
 			</p>
 
-			<h4>Example Code</h4>
 			<pre name="code" class="javascript">
 $('#demo1').click(function() {
 	$.reject(); // Default Settings
@@ -451,7 +458,6 @@ $('#demo1').click(function() {
 				In this example pretty much every browser should be rejected.
 			</p>
 
-			<h4>Example Code</h4>
 			<pre name="code" class="javascript">
 $('#demo2').click(function() {
 	$.reject({
@@ -488,14 +494,13 @@ $('#demo2').click(function() {
 				<strong>See Also</strong> <em class="option">closeLink</em>
 			</p>
 
-			<h4>Example Code</h4>
 			<pre name="code" class="javascript">
 $('#demo3').click(function() {
 	$.reject({
 		reject: { all: true }, // Reject all renderers for demo
 		header: 'Your browser is not supported here', // Header Text
 		paragraph1: 'You are currently using an unsupported browser', // Paragraph 1
-		paragraph2: 'Please install one of the many optional browsers below to proceed', // Paragraph 2
+		paragraph2: 'Please install one of the many optional browsers below to proceed',
 		closeMessage: 'Close this window at your own demise!' // Message below close window link
 	}); // Customized Text
 
@@ -520,7 +525,6 @@ $('#demo3').click(function() {
 				<strong>Default:</strong> ['firefox','chrome','msie','safari','opera','gcf']
 			</p>
 
-			<h4>Example Code</h4>
 			<pre name="code" class="javascript">
 $('#demo4').click(function() {
 	$.reject({
@@ -543,12 +547,11 @@ $('#demo4').click(function() {
 				You can even add a customized browser to the list, and display it in any order you want.
 			</p>
 			<p>
-				<strong>Note:</strong> To add your own icon, you need to create a 'browser_{browserName}.gif'
+				<strong>Note:</strong> To add your own icon, you need to create a 'browser_{browserName}.gif'<br />
 				file and place it in your <em class="option">imagePath</em> directory with the other images.<br />
 				<strong>Image Dimensions:</strong> 100x100<br />
 			</p>
 
-			<h4>Example Code</h4>
 			<pre name="code" class="javascript">
 $('#demo5').click(function() {
 	$.reject({
@@ -586,7 +589,6 @@ $('#demo5').click(function() {
 				If <em class="option">close</em> is false the cookie will never be set.
 			</p>
 
-			<h4>Example Code</h4>
 			<pre name="code" class="javascript">
 $('#demo6').click(function() {
 	$.reject({
@@ -618,7 +620,6 @@ $('#demo6').click(function() {
 				refresh the page to close out the popup window.
 			</p>
 
-			<h4>Example Code</h4>
 			<pre name="code" class="javascript">
 $('#demo7').click(function() {
 	$.reject({
@@ -645,7 +646,6 @@ $('#demo7').click(function() {
 				In chrome, only FireFox and Opera options will be displayed. iPhone/iPad displays no browser options
 			</p>
 
-			<h4>Example Code</h4>
 			<pre name="code" class="javascript">
 
 $('#demo8').click(function() {
