@@ -12,7 +12,7 @@
 	left: 0;
 	padding: 0;
 	margin: 0;
-	z-index: 200;
+	z-index: 2147483646;
 	position: absolute;
 }
 
@@ -20,7 +20,7 @@
 	position: absolute;
 	text-align: center;
 	width: 100%;
-	z-index: 300;
+	z-index: 2147483647;
 	padding: 0;
 	margin: 0;
 }
