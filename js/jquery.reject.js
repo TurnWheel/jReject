@@ -51,7 +51,7 @@ $.reject = function(options) {
 				url: 'http://www.opera.com/download/'
 			},
 			chrome: {
-				text: 'Chrome 22',
+				text: 'Chrome 23',
 				url: 'http://www.google.com/chrome/'
 			},
 			msie: {
