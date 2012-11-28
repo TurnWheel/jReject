@@ -40,7 +40,7 @@ Default Options:
 		browserShow: true, // Should the browser options be shown?
 		browserInfo: { // Settings for which browsers to display
 			firefox: {
-				text: 'Firefox 16', // Text below the icon
+				text: 'Mozilla Firefox', // Text below the icon
 				url: 'http://www.mozilla.com/firefox/' // URL For icon/text link
 			},
 			safari: {
@@ -52,7 +52,7 @@ Default Options:
 				url: 'http://www.opera.com/download/'
 			},
 			chrome: {
-				text: 'Chrome 23',
+				text: 'Google Chrome',
 				url: 'http://www.google.com/chrome/'
 			},
 			msie: {
