@@ -1,6 +1,6 @@
 /*
  * jReject (jQuery Browser Rejection Plugin)
- * Version 1.0.1
+ * Version 1.0.2
  * URL: http://jreject.turnwheel.com/
  * Description: jReject is a easy method of rejecting specific browsers on your site
  * Author: Steven Bower (TurnWheel Designs) http://turnwheel.com/
@@ -523,9 +523,16 @@ var _scrollSize = function() {
 					r.version = window.opera.version();
 				}
 
-				if (/safari/.test(r.name) && r.version > 400) {
-					r.version = '2.0';
-				}
+				if (/safari/.test(r.name)) {
+                                       var safariversion = /(safari)(\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/;
+                                       var res = safariversion.exec(i)
+                                       if ( res && res[3] && res[3] < 400) {
+                                                       r.version = '2.0';
+                                       }
+                               }
+
+				
+				
 				else if (r.name === 'presto') {
 					r.version = ($.browser.version > 9.27) ? 'futhark' : 'linear_b';
 				}
