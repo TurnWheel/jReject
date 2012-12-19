@@ -1,3 +1,6 @@
+Version 1.0.2
+	- Fix safari version detection for Chrome 23 on iOS
+
 Version 1.0.1
 	- Supports not showing the browser download links (useless on iOS)
 	- Passes JSLint
