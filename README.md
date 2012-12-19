@@ -115,3 +115,7 @@ Run On load (Default Options):
 	$(function() {
 		$.reject();
 	});
+
+Licensing:
+-----------------
+This library is dual licensed under the MIT and GPL licenses (as per jquery.reject.js).
