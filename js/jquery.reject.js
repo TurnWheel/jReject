@@ -4,7 +4,7 @@
  * URL: http://jreject.turnwheel.com/
  * Description: jReject is a easy method of rejecting specific browsers on your site
  * Author: Steven Bower (TurnWheel Designs) http://turnwheel.com/
- * Copyright: Copyright (c) 2009-2011 Steven Bower under dual MIT/GPL license.
+ * Copyright: Copyright (c) 2009-2013 Steven Bower under dual MIT/GPL license.
  */
 
 (function($) {
@@ -490,7 +490,7 @@ var _scrollSize = function() {
 
 /*
  * jQuery Browser Plugin
- * Version 2.4 / jReject 1.0
+ * Version 2.4 / jReject 1.0.x
  * URL: http://jquery.thewikies.com/browser
  * Description: jQuery Browser Plugin extends browser detection capabilities and
  * can assign browser selectors to CSS classes.

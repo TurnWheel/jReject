@@ -2,7 +2,7 @@
 ================================
 
 Created by Steven Bower
-TurnWheel Designs 2009-2011
+TurnWheel Designs (2009-2013)
 
 Concept based on "IE6 Upgrade Warning" library.
 
@@ -118,4 +118,4 @@ Run On load (Default Options):
 
 Licensing:
 -----------------
-This library is dual licensed under the MIT and GPL licenses (as per jquery.reject.js).
+This library is dual licensed under the MIT and GPL licenses.
