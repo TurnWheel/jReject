@@ -524,15 +524,13 @@ var _scrollSize = function() {
 				}
 
 				if (/safari/.test(r.name)) {
-                                       var safariversion = /(safari)(\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/;
-                                       var res = safariversion.exec(i)
-                                       if ( res && res[3] && res[3] < 400) {
-                                                       r.version = '2.0';
-                                       }
-                               }
+					var safariversion = /(safari)(\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/;
+					var res = safariversion.exec(i)
+					if (res && res[3] && res[3] < 400) {
+						r.version = '2.0';
+					}
+				}
 
-				
-				
 				else if (r.name === 'presto') {
 					r.version = ($.browser.version > 9.27) ? 'futhark' : 'linear_b';
 				}
