@@ -118,4 +118,4 @@ Run On load (Default Options):
 
 Licensing:
 -----------------
-This library is dual licensed under the MIT and GPL licenses.
+This library is dual licensed under the MIT and GPLv2 licenses.
