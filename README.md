@@ -6,7 +6,15 @@ TurnWheel Designs (2009-2013)
 
 Concept based on "IE6 Upgrade Warning" library.
 
-Visit [jreject.turnwheel.com](http://jreject.turnwheel.com/) for full documentation
+View doc.html for documentation and examples, or
+visit [jreject.turnwheel.com](http://jreject.turnwheel.com/)
+
+**Versions**: Supports jQuery 1.4+
+Tested on 1.9 and 2.0.0-beta1
+
+Licensing:
+-----------------
+This library is dual licensed under the MIT and GPLv2 licenses.
 
 Default Options:
 -----------------
@@ -116,7 +124,3 @@ Run On load (Default Options):
 	$(function() {
 		$.reject();
 	});
-
-Licensing:
------------------
-This library is dual licensed under the MIT and GPLv2 licenses.

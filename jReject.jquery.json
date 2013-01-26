@@ -23,10 +23,10 @@
 		}
 	],
 	"bugs": "https://github.com/TurnWheel/jReject/issues",
-	"homepage": "https://github.com/TurnWheel/jReject",
+	"homepage": "http://jreject.turnwheel.com",
 	"docs": "http://jreject.turnwheel.com",
 	"download": "https://github.com/TurnWheel/jReject/archive/1.0.2.zip",
 	"dependencies": {
-		"jquery": ">=1.5"
+		"jquery": ">=1.4"
 	}
 }
