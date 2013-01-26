@@ -36,12 +36,17 @@ Default Options:
 			 * unknown // Unknown covers everything else
 			 */
 		},
-		display: [], // What browsers to display and their order (default set below)
+		// What browsers to display and their order
+		display: ['chrome', 'firefox', 'safari', 'opera', 'gcf', 'msie'],
 		browserShow: true, // Should the browser options be shown?
 		browserInfo: { // Settings for which browsers to display
 			firefox: {
 				text: 'Mozilla Firefox', // Text below the icon
 				url: 'http://www.mozilla.com/firefox/' // URL For icon/text link
+			},
+			chrome: {
+				text: 'Google Chrome',
+				url: 'http://www.google.com/chrome/'
 			},
 			safari: {
 				text: 'Safari 5',
@@ -50,10 +55,6 @@ Default Options:
 			opera: {
 				text: 'Opera 12',
 				url: 'http://www.opera.com/download/'
-			},
-			chrome: {
-				text: 'Google Chrome',
-				url: 'http://www.google.com/chrome/'
 			},
 			msie: {
 				text: 'Internet Explorer 9',

@@ -42,6 +42,10 @@ $.reject = function(options) {
 				text: 'Mozilla Firefox', // Text below the icon
 				url: 'http://www.mozilla.com/firefox/' // URL For icon/text link
 			},
+			chrome: {
+				text: 'Google Chrome',
+				url: 'http://www.google.com/chrome/'
+			},
 			safari: {
 				text: 'Safari 5',
 				url: 'http://www.apple.com/safari/download/'
@@ -49,10 +53,6 @@ $.reject = function(options) {
 			opera: {
 				text: 'Opera 12',
 				url: 'http://www.opera.com/download/'
-			},
-			chrome: {
-				text: 'Google Chrome',
-				url: 'http://www.google.com/chrome/'
 			},
 			msie: {
 				text: 'Internet Explorer 9',
@@ -112,7 +112,7 @@ $.reject = function(options) {
 
 	// Set default browsers to display if not already defined
 	if (opts.display.length < 1) {
-		opts.display = ['firefox','chrome','msie','safari','opera','gcf'];
+		opts.display = ['chrome','firefox','safari','opera','gcf','msie'];
 	}
 
 	// beforeRject: Customized Function
