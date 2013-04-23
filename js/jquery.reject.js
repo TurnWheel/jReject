@@ -548,18 +548,19 @@ var _scrollSize = function() {
 				return r;
 			};
 
-		a = (/Opera|Navigator|Minefield|KHTML|Chrome/.test(a) ? m(a, [
+		a = (/Opera|Navigator|Minefield|KHTML|Chrome|CriOS/.test(a) ? m(a, [
 			[/(Firefox|MSIE|KHTML,\slike\sGecko|Konqueror)/, ''],
 			['Chrome Safari', 'Chrome'],
+			['CriOS', 'Chrome'],
 			['KHTML', 'Konqueror'],
 			['Minefield', 'Firefox'],
 			['Navigator', 'Netscape']
 		]) : a).toLowerCase();
 
 		$.browser = $.extend((!z) ? $.browser : {}, c(a,
-			/(camino|chrome|firefox|netscape|konqueror|lynx|msie|opera|safari)/,
+			/(camino|chrome|crios|firefox|netscape|konqueror|lynx|msie|opera|safari)/,
 			[],
-			/(camino|chrome|firefox|netscape|netscape6|opera|version|konqueror|lynx|msie|safari)(\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/));
+			/(camino|chrome|crios|firefox|netscape|netscape6|opera|version|konqueror|lynx|msie|safari)(\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/));
 
 		$.layout = c(a, /(gecko|konqueror|msie|opera|webkit)/, [
 			['konqueror', 'khtml'],
