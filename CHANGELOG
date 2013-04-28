@@ -1,3 +1,6 @@
+Version 1.0.3
+	- Update to explicity allow browser+version and exclude all others. 
+
 Version 1.0.2
 	- Fix safari version detection for Chrome 23 on iOS
 
