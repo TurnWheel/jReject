@@ -10,7 +10,7 @@ View doc.html for documentation and examples, or
 visit [jreject.turnwheel.com](http://jreject.turnwheel.com/)
 
 **Versions**: Supports jQuery 1.4+
-Tested on 1.9 and 2.0.0-beta1
+Tested on 1.9 and 2.0
 
 Licensing:
 -----------------
