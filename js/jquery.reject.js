@@ -534,6 +534,11 @@ var _scrollSize = function() {
 				else if (r.name === 'presto') {
 					r.version = ($.browser.version > 9.27) ? 'futhark' : 'linear_b';
 				}
+				
+				if (/msie/.test(r.name) && r.version === x) {
+					var ieVersion = /rv:(\d+\.\d+)/.exec(i);
+					r.version = ieVersion[1];
+				}
 
 				r.versionNumber = parseFloat(r.version, 10) || 0;
 				var minorStart = 1;
@@ -558,11 +563,13 @@ var _scrollSize = function() {
 		]) : a).toLowerCase();
 
 		$.browser = $.extend((!z) ? $.browser : {}, c(a,
-			/(camino|chrome|crios|firefox|netscape|konqueror|lynx|msie|opera|safari)/,
-			[],
-			/(camino|chrome|crios|firefox|netscape|netscape6|opera|version|konqueror|lynx|msie|safari)(\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/));
+			/(camino|chrome|crios|firefox|netscape|konqueror|lynx|msie|trident|opera|safari)/,
+			[
+				['trident', 'msie']
+			],
+			/(camino|chrome|crios|firefox|netscape|netscape6|opera|version|konqueror|lynx|msie|rv|safari)(:|\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/));
 
-		$.layout = c(a, /(gecko|konqueror|msie|opera|webkit)/, [
+		$.layout = c(a, /(gecko|konqueror|msie|trident|opera|webkit)/, [
 			['konqueror', 'khtml'],
 			['msie', 'trident'],
 			['opera', 'presto']
