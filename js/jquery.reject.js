@@ -57,12 +57,6 @@ $.reject = function(options) {
 			msie: {
 				text: 'Internet Explorer 9',
 				url: 'http://www.microsoft.com/windows/Internet-explorer/'
-			},
-			gcf: {
-				text: 'Google Chrome Frame',
-				url: 'http://code.google.com/chrome/chromeframe/',
-				// This browser option will only be displayed for MSIE
-				allow: { all: false, msie: true }
 			}
 		},
 
@@ -112,7 +106,7 @@ $.reject = function(options) {
 
 	// Set default browsers to display if not already defined
 	if (opts.display.length < 1) {
-		opts.display = ['chrome','firefox','safari','opera','gcf','msie'];
+		opts.display = ['chrome','firefox','safari','opera','msie'];
 	}
 
 	// beforeRject: Customized Function
