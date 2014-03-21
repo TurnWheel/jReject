@@ -35,6 +35,7 @@
 	height: auto;
 	padding: 20px;
 	position: relative;
+	box-sizing: content-box;
 }
 
 #jr_header {
