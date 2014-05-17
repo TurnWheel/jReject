@@ -10,38 +10,38 @@
 (function($) {
 $.reject = function(options) {
 	var opts = $.extend(true, {
-        // Specifies which browsers/versions will be blocked
+		// Specifies which browsers/versions will be blocked
 		reject : {
 			all: false, // Covers Everything (Nothing blocked)
 			msie: 6 // Covers MSIE <= 6 (Blocked by default)
 			/*
 			 * Many possible combinations.
-             * You can specify browser (msie, chrome, firefox)
-             * You can specify rendering engine (geko, trident)
+			 * You can specify browser (msie, chrome, firefox)
+			 * You can specify rendering engine (geko, trident)
 			 * You can specify OS (Win, Mac, Linux, Solaris, iPhone, iPad)
-             *
-             * You can specify versions of each.
-             * Examples: msie9: true, firefox8: true,
-             *
-             * You can specify the highest number to reject.
-             * Example: msie: 9 (9 and lower are rejected.
-             *
-             * There is also "unknown" that covers what isn't detected
+			 *
+			 * You can specify versions of each.
+			 * Examples: msie9: true, firefox8: true,
+			 *
+			 * You can specify the highest number to reject.
+			 * Example: msie: 9 (9 and lower are rejected.
+			 *
+			 * There is also "unknown" that covers what isn't detected
 			 * Example: unknown: true
 			 */
 		},
 		display: [], // What browsers to display and their order (default set below)
 		browserShow: true, // Should the browser options be shown?
 		browserInfo: { // Settings for which browsers to display
-            chrome: {
-                // Text below the icon
-                text: 'Google Chrome',
-                // URL For icon/text link
-                url: 'http://www.google.com/chrome/',
-                // (Optional) Use "allow" to customized when to show this option
-                // Example: to show chrome only for IE users
-                // allow: { all: false, msie: true }
-            },
+			chrome: {
+				// Text below the icon
+				text: 'Google Chrome',
+				// URL For icon/text link
+				url: 'http://www.google.com/chrome/',
+				// (Optional) Use "allow" to customized when to show this option
+				// Example: to show chrome only for IE users
+				// allow: { all: false, msie: true }
+			},
 			firefox: {
 				text: 'Mozilla Firefox',
 				url: 'http://www.mozilla.com/firefox/'
@@ -69,19 +69,19 @@ $.reject = function(options) {
 
 		paragraph2: 'Just click on the icons to get to the download page',
 
-        // Allow closing of window
+		// Allow closing of window
 		close: true,
 
 		// Message displayed below closing link
 		closeMessage: 'By closing this window you acknowledge that your experience '+
 						'on this website may be degraded',
-        closeLink: 'Close This Window',
+		closeLink: 'Close This Window',
 		closeURL: '#',
 
-        // Allows closing of window with esc key
+		// Allows closing of window with esc key
 		closeESC: true,
 
-        // Use cookies to remmember if window was closed previously?
+		// Use cookies to remmember if window was closed previously?
 		closeCookie: false,
 		// Cookie settings are only used if closeCookie is true
 		cookieSettings: {
@@ -93,11 +93,11 @@ $.reject = function(options) {
 			expires: 0
 		},
 
-        // Path where images are located
+		// Path where images are located
 		imagePath: './images/',
-        // Background color for overlay
+		// Background color for overlay
 		overlayBgColor: '#000',
-        // Background transparency (0-1)
+		// Background transparency (0-1)
 		overlayOpacity: 0.8,
 
 		// Fade in time on open ('slow','medium','fast' or integer in ms)
@@ -221,7 +221,7 @@ $.reject = function(options) {
 		(opts.paragraph1 === '' ? '' : '<p>'+opts.paragraph1+'</p>')+
 		(opts.paragraph2 === '' ? '' : '<p>'+opts.paragraph2+'</p>');
 
-    var displayNum = 0;
+	var displayNum = 0;
 	if (opts.browserShow) {
 		html += '<ul>';
 
@@ -232,7 +232,7 @@ $.reject = function(options) {
 
 			// If no info exists for this browser
 			// or if this browser is not suppose to display to this user
-            // based on "allow" flag
+			// based on "allow" flag
 			if (!info || (info['allow'] != undefined && !browserCheck(info['allow']))) {
 				continue;
 			}
@@ -305,8 +305,8 @@ $.reject = function(options) {
 	// only if opts.analytics is enabled
 	var analytics = function(url) {
 		if (!opts.analytics) {
-            return false;
-        }
+			return false;
+		}
 
 		// Get just the hostname
 		var host = url.split(/\/+/g)[1];
@@ -315,11 +315,11 @@ $.reject = function(options) {
 		// Attempts both versions of analytics code. (Newest first)
 		try {
 			// Newest analytics code
-            ga('send', 'event', 'External', 'Click', host, url);
+			ga('send', 'event', 'External', 'Click', host, url);
 		} catch (e) {
-            try {
-                _gaq.push([ '_trackEvent', 'External Links',  host, url ]);
-            } catch (e) { }
+			try {
+				_gaq.push([ '_trackEvent', 'External Links',  host, url ]);
+			} catch (e) { }
 		}
 	};
 
