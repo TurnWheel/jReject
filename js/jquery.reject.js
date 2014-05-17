@@ -303,8 +303,10 @@ $.reject = function(options) {
 
 	// Tracks clicks in Google Analytics (category 'External Links')
 	// only if opts.analytics is enabled
-	var analytics = function (url) {
-		if (!opts.analytics) return false;
+	var analytics = function(url) {
+		if (!opts.analytics) {
+            return false;
+        }
 
 		// Get just the hostname
 		var host = url.split(/\/+/g)[1];
@@ -313,12 +315,11 @@ $.reject = function(options) {
 		// Attempts both versions of analytics code. (Newest first)
 		try {
 			// Newest analytics code
-			_gaq.push(['_trackEvent', 'External Links',  host, url]);
+            ga('send', 'event', 'External', 'Click', host, url);
 		} catch (e) {
-			try {
-				// Older analytics code
-				pageTracker._trackEvent('External Links', host, url);
-			} catch (ev) { }
+            try {
+                _gaq.push([ '_trackEvent', 'External Links',  host, url ]);
+            } catch (e) { }
 		}
 	};
 
