@@ -9,7 +9,7 @@ Concept based on "IE6 Upgrade Warning" library.
 View doc.html for documentation and examples, or
 visit [jreject.turnwheel.com](http://jreject.turnwheel.com/)
 
-**Versions**: Supported by jQuery 1.8+ & 2.0+
+**Versions**: Supported by jQuery 1.7+ & 2.0+
 
 Licensing:
 -----------------
