@@ -9,42 +9,42 @@
 
 (function($) {
 $.reject = function(options) {
-	var opts = $.extend(true,{
-		reject : { // Rejection flags for specific browsers
+	var opts = $.extend(true, {
+        // Specifies which browsers/versions will be blocked
+		reject : {
 			all: false, // Covers Everything (Nothing blocked)
-			msie: 6 // Covers MSIE <=6 (Blocked by default)
+			msie: 6 // Covers MSIE <= 6 (Blocked by default)
 			/*
-			 * Possibilities are endless...
-			 *
-			 * // MSIE Flags (Global, 5-8)
-			 * msie, msie5, msie6, msie7, msie8,
-			 * // Firefox Flags (Global, 1-3)
-			 * firefox, firefox1, firefox2, firefox3,
-			 * // Konqueror Flags (Global, 1-3)
-			 * konqueror, konqueror1, konqueror2, konqueror3,
-			 * // Chrome Flags (Global, 1-4)
-			 * chrome, chrome1, chrome2, chrome3, chrome4,
-			 * // Safari Flags (Global, 1-4)
-			 * safari, safari2, safari3, safari4,
-			 * // Opera Flags (Global, 7-10)
-			 * opera, opera7, opera8, opera9, opera10,
-			 * // Rendering Engines (Gecko, Webkit, Trident, KHTML, Presto)
-			 * gecko, webkit, trident, khtml, presto,
-			 * // Operating Systems (Win, Mac, Linux, Solaris, iPhone)
-			 * win, mac, linux, solaris, iphone,
-			 * unknown // Unknown covers everything else
+			 * Many possible combinations.
+             * You can specify browser (msie, chrome, firefox)
+             * You can specify rendering engine (geko, trident)
+			 * You can specify OS (Win, Mac, Linux, Solaris, iPhone, iPad)
+             *
+             * You can specify versions of each.
+             * Examples: msie9: true, firefox8: true,
+             *
+             * You can specify the highest number to reject.
+             * Example: msie: 9 (9 and lower are rejected.
+             *
+             * There is also "unknown" that covers what isn't detected
+			 * Example: unknown: true
 			 */
 		},
 		display: [], // What browsers to display and their order (default set below)
 		browserShow: true, // Should the browser options be shown?
 		browserInfo: { // Settings for which browsers to display
+            chrome: {
+                // Text below the icon
+                text: 'Google Chrome',
+                // URL For icon/text link
+                url: 'http://www.google.com/chrome/',
+                // (Optional) Use "allow" to customized when to show this option
+                // Example: to show chrome only for IE users
+                // allow: { all: false, msie: true }
+            },
 			firefox: {
-				text: 'Mozilla Firefox', // Text below the icon
-				url: 'http://www.mozilla.com/firefox/' // URL For icon/text link
-			},
-			chrome: {
-				text: 'Google Chrome',
-				url: 'http://www.google.com/chrome/'
+				text: 'Mozilla Firefox',
+				url: 'http://www.mozilla.com/firefox/'
 			},
 			safari: {
 				text: 'Safari',
@@ -60,24 +60,28 @@ $.reject = function(options) {
 			}
 		},
 
-		// Header of pop-up window
+		// Pop-up Window Text
 		header: 'Did you know that your Internet Browser is out of date?',
-		// Paragraph 1
+
 		paragraph1: 'Your browser is out of date, and may not be compatible with '+
 					'our website. A list of the most popular web browsers can be '+
 					'found below.',
-		// Paragraph 2
+
 		paragraph2: 'Just click on the icons to get to the download page',
-		close: true, // Allow closing of window
+
+        // Allow closing of window
+		close: true,
+
 		// Message displayed below closing link
 		closeMessage: 'By closing this window you acknowledge that your experience '+
 						'on this website may be degraded',
-		closeLink: 'Close This Window', // Text for closing link
-		closeURL: '#', // Close URL
-		closeESC: true, // Allow closing of window with esc key
+        closeLink: 'Close This Window',
+		closeURL: '#',
 
-		// If cookies should be used to remmember if the window was closed
-		// See cookieSettings for more options
+        // Allows closing of window with esc key
+		closeESC: true,
+
+        // Use cookies to remmember if window was closed previously?
 		closeCookie: false,
 		// Cookie settings are only used if closeCookie is true
 		cookieSettings: {
@@ -89,9 +93,12 @@ $.reject = function(options) {
 			expires: 0
 		},
 
-		imagePath: './images/', // Path where images are located
-		overlayBgColor: '#000', // Background color for overlay
-		overlayOpacity: 0.8, // Background transparency (0-1)
+        // Path where images are located
+		imagePath: './images/',
+        // Background color for overlay
+		overlayBgColor: '#000',
+        // Background transparency (0-1)
+		overlayOpacity: 0.8,
 
 		// Fade in time on open ('slow','medium','fast' or integer in ms)
 		fadeInTime: 'fast',
@@ -106,7 +113,7 @@ $.reject = function(options) {
 
 	// Set default browsers to display if not already defined
 	if (opts.display.length < 1) {
-		opts.display = ['chrome','firefox','safari','opera','msie'];
+		opts.display = [ 'chrome','firefox','safari','opera','msie' ];
 	}
 
 	// beforeRject: Customized Function
@@ -137,7 +144,7 @@ $.reject = function(options) {
 
 	// Determine if we need to display rejection for this browser, or exit
 	if (!browserCheck(opts.reject)) {
-		// onFail: Customized Function
+		// onFail: Optional Callback
 		if ($.isFunction(opts.onFail)) {
 			opts.onFail();
 		}
@@ -214,10 +221,9 @@ $.reject = function(options) {
 		(opts.paragraph1 === '' ? '' : '<p>'+opts.paragraph1+'</p>')+
 		(opts.paragraph2 === '' ? '' : '<p>'+opts.paragraph2+'</p>');
 
+    var displayNum = 0;
 	if (opts.browserShow) {
 		html += '<ul>';
-
-		var displayNum = 0;
 
 		// Generate the browsers to display
 		for (var x in opts.display) {
@@ -226,6 +232,7 @@ $.reject = function(options) {
 
 			// If no info exists for this browser
 			// or if this browser is not suppose to display to this user
+            // based on "allow" flag
 			if (!info || (info['allow'] != undefined && !browserCheck(info['allow']))) {
 				continue;
 			}
@@ -311,7 +318,7 @@ $.reject = function(options) {
 			try {
 				// Older analytics code
 				pageTracker._trackEvent('External Links', host, url);
-			} catch (e) { }
+			} catch (ev) { }
 		}
 	};
 
@@ -441,6 +448,7 @@ $.reject = function(options) {
 };
 
 // Based on compatibility data from quirksmode.com
+// This is used to help calculate exact center of the page
 var _pageSize = function() {
 	var xScroll = window.innerWidth && window.scrollMaxX ?
 				window.innerWidth + window.scrollMaxX :
@@ -521,7 +529,7 @@ var _scrollSize = function() {
 
 				if (/safari/.test(r.name)) {
 					var safariversion = /(safari)(\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/;
-					var res = safariversion.exec(i)
+					var res = safariversion.exec(i);
 					if (res && res[3] && res[3] < 400) {
 						r.version = '2.0';
 					}
@@ -530,7 +538,7 @@ var _scrollSize = function() {
 				else if (r.name === 'presto') {
 					r.version = ($.browser.version > 9.27) ? 'futhark' : 'linear_b';
 				}
-				
+
 				if (/msie/.test(r.name) && r.version === x) {
 					var ieVersion = /rv:(\d+\.\d+)/.exec(i);
 					r.version = ieVersion[1];
