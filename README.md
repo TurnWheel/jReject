@@ -45,7 +45,7 @@ Default Options:
 			 */
 		},
 		// What browsers to display and their order
-		display: ['chrome', 'firefox', 'safari', 'opera', 'gcf', 'msie'],
+		display: ['chrome', 'firefox', 'safari', 'opera', 'msie'],
 		browserShow: true, // Should the browser options be shown?
 		browserInfo: { // Settings for which browsers to display
 			firefox: {
@@ -67,12 +67,6 @@ Default Options:
 			msie: {
 				text: 'Internet Explorer 9',
 				url: 'http://www.microsoft.com/windows/Internet-explorer/'
-			},
-			gcf: {
-				text: 'Google Chrome Frame',
-				url: 'http://code.google.com/chrome/chromeframe/',
-				// This browser option will only be displayed for MSIE
-				allow: { all: false, msie: true }
 			}
 		},
 

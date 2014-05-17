@@ -12,7 +12,7 @@ $.reject = function(options) {
 	var opts = $.extend(true,{
 		reject : { // Rejection flags for specific browsers
 			all: false, // Covers Everything (Nothing blocked)
-			msie5: true, msie6: true // Covers MSIE 5-6 (Blocked by default)
+			msie: 6 // Covers MSIE <=6 (Blocked by default)
 			/*
 			 * Possibilities are endless...
 			 *
@@ -47,22 +47,16 @@ $.reject = function(options) {
 				url: 'http://www.google.com/chrome/'
 			},
 			safari: {
-				text: 'Safari 5',
+				text: 'Safari',
 				url: 'http://www.apple.com/safari/download/'
 			},
 			opera: {
-				text: 'Opera 12',
+				text: 'Opera',
 				url: 'http://www.opera.com/download/'
 			},
 			msie: {
-				text: 'Internet Explorer 9',
+				text: 'Internet Explorer',
 				url: 'http://www.microsoft.com/windows/Internet-explorer/'
-			},
-			gcf: {
-				text: 'Google Chrome Frame',
-				url: 'http://code.google.com/chrome/chromeframe/',
-				// This browser option will only be displayed for MSIE
-				allow: { all: false, msie: true }
 			}
 		},
 
@@ -112,7 +106,7 @@ $.reject = function(options) {
 
 	// Set default browsers to display if not already defined
 	if (opts.display.length < 1) {
-		opts.display = ['chrome','firefox','safari','opera','gcf','msie'];
+		opts.display = ['chrome','firefox','safari','opera','msie'];
 	}
 
 	// beforeRject: Customized Function
@@ -128,15 +122,17 @@ $.reject = function(options) {
 	// This function parses the advanced browser options
 	var browserCheck = function(settings) {
 		// Check 1: Look for 'all' forced setting
-		// Check 2: Operating System (eg. 'win','mac','linux','solaris','iphone')
-		// Check 3: Rendering engine (eg. 'webkit', 'gecko', 'trident')
-		// Check 4: Browser name (eg. 'firefox','msie','chrome')
-		// Check 5: Browser+major version (eg. 'firefox3','msie7','chrome4')
-		return (settings['all'] ? true : false) ||
-			(settings[$.os.name] ? true : false) ||
-			(settings[$.layout.name] ? true : false) ||
-			(settings[$.browser.name] ? true : false) ||
-			(settings[$.browser.className] ? true : false);
+		// Check 2: Browser+major version (optional) (eg. 'firefox','msie','{msie: 6}')
+		// Check 3: Browser+major version (eg. 'firefox3','msie7','chrome4')
+		// Check 4: Rendering engine+version (eg. 'webkit', 'gecko', '{webkit: 537.36}')
+		// Check 5: Operating System (eg. 'win','mac','linux','solaris','iphone')
+		var layout = settings[$.layout.name],
+			browser = settings[$.browser.name];
+		return !!(settings['all']
+			|| (browser && (browser === true || $.browser.versionNumber <= browser))
+			|| settings[$.browser.className]
+			|| (layout && (layout === true || $.layout.versionNumber <= layout))
+			|| settings[$.os.name]);
 	};
 
 	// Determine if we need to display rejection for this browser, or exit
@@ -534,6 +530,11 @@ var _scrollSize = function() {
 				else if (r.name === 'presto') {
 					r.version = ($.browser.version > 9.27) ? 'futhark' : 'linear_b';
 				}
+				
+				if (/msie/.test(r.name) && r.version === x) {
+					var ieVersion = /rv:(\d+\.\d+)/.exec(i);
+					r.version = ieVersion[1];
+				}
 
 				r.versionNumber = parseFloat(r.version, 10) || 0;
 				var minorStart = 1;
@@ -558,11 +559,13 @@ var _scrollSize = function() {
 		]) : a).toLowerCase();
 
 		$.browser = $.extend((!z) ? $.browser : {}, c(a,
-			/(camino|chrome|crios|firefox|netscape|konqueror|lynx|msie|opera|safari)/,
-			[],
-			/(camino|chrome|crios|firefox|netscape|netscape6|opera|version|konqueror|lynx|msie|safari)(\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/));
+			/(camino|chrome|crios|firefox|netscape|konqueror|lynx|msie|trident|opera|safari)/,
+			[
+				['trident', 'msie']
+			],
+			/(camino|chrome|crios|firefox|netscape|netscape6|opera|version|konqueror|lynx|msie|rv|safari)(:|\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/));
 
-		$.layout = c(a, /(gecko|konqueror|msie|opera|webkit)/, [
+		$.layout = c(a, /(gecko|konqueror|msie|trident|opera|webkit)/, [
 			['konqueror', 'khtml'],
 			['msie', 'trident'],
 			['opera', 'presto']
