@@ -109,7 +109,7 @@
 		$('a[rel="external"]').click(function() {
 			var href = $(this).attr('href');
 
-			// Send external link event to Google Analaytics
+			// Send external link event to Google Analytics
 			try {
 				_gaq.push(['_trackEvent','External Links', href.split(/\/+/g)[1], href]);
 			} catch (e) {};
@@ -314,7 +314,7 @@ options = {
 			*/
 	},
 	// What browsers to display and their order
-	display: ['chrome', 'firefox', 'safari', 'opera', 'gcf', 'msie'],
+	display: ['chrome', 'firefox', 'safari', 'opera', 'msie'],
 	browserShow: true, // Should the browser options be shown?
 	browserInfo: { // Settings for which browsers to display
 		firefox: {
@@ -336,12 +336,6 @@ options = {
 		msie: {
 			text: 'Internet Explorer 9',
 			url: 'http://www.microsoft.com/windows/Internet-explorer/'
-		},
-		gcf: {
-			text: 'Google Chrome Frame',
-			url: 'http://code.google.com/chrome/chromeframe/',
-			// This browser option will only be displayed for MSIE
-			allow: { all: false, msie: true }
 		}
 	},
 
@@ -518,12 +512,10 @@ $('#demo3').click(function() {
 
 			<p>
 				Using the <em class="option">display</em> option, you can define
-				which browsers to suggest, and the order in which to suggest them.<br />
-				<acronym title="Google Chrome Frame">GCF</acronym> is supported,
-				but only displayed for IE users by default.
+				which browsers to suggest, and the order in which to suggest them.
 			</p>
 			<p>
-				<strong>Default:</strong> ['firefox','chrome','msie','safari','opera','gcf']
+				<strong>Default:</strong> ['firefox','chrome','msie','safari','opera']
 			</p>
 
 			<pre name="code" class="javascript">
