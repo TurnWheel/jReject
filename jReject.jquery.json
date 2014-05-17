@@ -25,7 +25,7 @@
 	"bugs": "https://github.com/TurnWheel/jReject/issues",
 	"homepage": "http://jreject.turnwheel.com",
 	"docs": "http://jreject.turnwheel.com",
-	"download": "https://github.com/TurnWheel/jReject/archive/1.0.2.zip",
+	"download": "https://github.com/TurnWheel/jReject/archive/1.1.0.zip",
 	"dependencies": {
 		"jquery": ">=1.7"
 	}
