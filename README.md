@@ -20,6 +20,7 @@ Default Options:
 -----------------
 	options = {
 		reject : { // Rejection flags for specific browsers
+			versionallow: false, //override if you intend to explicitly enable by browser+version only
 			all: false, // Covers Everything (Nothing blocked)
 			msie5: true, msie6: true // Covers MSIE 5-6 (Blocked by default)
 			/*

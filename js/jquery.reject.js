@@ -11,6 +11,7 @@
 $.reject = function(options) {
 	var opts = $.extend(true,{
 		reject : { // Rejection flags for specific browsers
+			versionallow: false, //override if you intend to explicitly enable by browser+version only
 			all: false, // Covers Everything (Nothing blocked)
 			msie5: true, msie6: true // Covers MSIE 5-6 (Blocked by default)
 			/*
@@ -121,16 +122,23 @@ $.reject = function(options) {
 
 	// This function parses the advanced browser options
 	var browserCheck = function(settings) {
-		// Check 1: Look for 'all' forced setting
-		// Check 2: Operating System (eg. 'win','mac','linux','solaris','iphone')
-		// Check 3: Rendering engine (eg. 'webkit', 'gecko', 'trident')
-		// Check 4: Browser name (eg. 'firefox','msie','chrome')
-		// Check 5: Browser+major version (eg. 'firefox3','msie7','chrome4')
-		return (settings['all'] ? true : false) ||
-			(settings[$.os.name] ? true : false) ||
-			(settings[$.layout.name] ? true : false) ||
-			(settings[$.browser.name] ? true : false) ||
-			(settings[$.browser.className] ? true : false);
+		if(!settings.versionallow) {
+			// Check 1: Look for 'all' forced setting
+			// Check 2: Operating System (eg. 'win','mac','linux','solaris','iphone')
+			// Check 3: Rendering engine (eg. 'webkit', 'gecko', 'trident')
+			// Check 4: Browser name (eg. 'firefox','msie','chrome')
+			// Check 5: Browser+major version (eg. 'firefox3','msie7','chrome4')
+			return (settings['all'] ? true : false) ||
+				(settings[$.os.name] ? true : false) ||
+				(settings[$.layout.name] ? true : false) ||
+				(settings[$.browser.name] ? true : false) ||
+				(settings[$.browser.className] ? true : false);
+		} 
+		else {
+			// Only check browser className by the list in settings
+      if(typeof settings[$.browser.className] === "undefined") return true;
+      return (settings[$.browser.className] ? false : true)
+		}
 	};
 
 	// Determine if we need to display rejection for this browser, or exit

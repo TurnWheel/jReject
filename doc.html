@@ -289,6 +289,7 @@
 			<pre name="code" class="javascript" id="options">
 options = {
 	reject : { // Rejection flags for specific browsers
+		versionallow: false, //override if you intend to explicitly enable by browser+version only
 		all: false, // Covers Everything (Nothing blocked)
 		msie5: true, msie6: true // Covers MSIE 5-6 (Blocked by default)
 		/*
@@ -652,6 +653,32 @@ $('#demo8').click(function() {
 				this.browserShow = false;
 				this.paragraph2 = '';
 			}
+		}
+	});
+
+	return false;
+});
+			</pre>
+		</div>
+
+		<hr />
+
+		<div class="example">
+			<h3>Demo #9: Explicity Allow by Browser+Version</h3>
+			<a href="#" id="demo9" class="demo">Run Demo</a><br />
+
+			<p>
+				This example uses the <em>versionallow</em> setting to only allow chrome26 to pass, chrome 25 to fail, and all others to fail.
+			</p>
+
+			<pre name="code" class="javascript">
+
+$('#demo9').click(function() {
+	$.reject({
+		reject: { 
+			versionallow:	true,
+			chrome26:			true,
+			chrome25:			false
 		}
 	});
 
