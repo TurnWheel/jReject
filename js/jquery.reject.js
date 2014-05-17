@@ -4,7 +4,7 @@
  * URL: http://jreject.turnwheel.com/
  * Description: jReject is a easy method of rejecting specific browsers on your site
  * Author: Steven Bower (TurnWheel Designs) http://turnwheel.com/
- * Copyright: Copyright (c) 2009-2013 Steven Bower under dual MIT/GPLv2 license.
+ * Copyright: Copyright (c) 2009-2014 Steven Bower under dual MIT/GPLv2 license.
  */
 
 (function($) {
