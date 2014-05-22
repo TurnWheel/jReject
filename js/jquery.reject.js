@@ -37,7 +37,7 @@ $.reject = function(options) {
 				// Text below the icon
 				text: 'Google Chrome',
 				// URL For icon/text link
-				url: 'http://www.google.com/chrome/',
+				url: 'http://www.google.com/chrome/'
 				// (Optional) Use "allow" to customized when to show this option
 				// Example: to show chrome only for IE users
 				// allow: { all: false, msie: true }
