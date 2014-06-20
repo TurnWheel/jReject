@@ -9,7 +9,9 @@ Concept based on "IE6 Upgrade Warning" library.
 View doc.html for documentation and examples, or
 visit [jreject.turnwheel.com](http://jreject.turnwheel.com/)
 
-**Versions**: Supported by jQuery 1.7+ & 2.0+
+**Important Note about jQuery Versions**
+Supported by jQuery 1.7+ & 2.0+
+If you wish to reject IE 6-8 or earlier, you must use jQuery 1.11.x or lower.
 
 Licensing:
 -----------------
