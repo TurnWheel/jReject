@@ -29,7 +29,7 @@ $.reject = function(options) {
 			 * There is also "unknown" that covers what isn't detected
 			 * Example: unknown: true
                          *
-                         * finally you can specify a default behaviour. To reject any browser not covered by reject rules,
+                         * Finally you can specify a default behaviour. To reject any browser not covered by reject rules,
                          * just specify: default: true
 			 */
 		},
@@ -144,7 +144,7 @@ $.reject = function(options) {
 			|| settings[$.browser.className]
 			|| (layout && (layout === true || $.layout.versionNumber <= layout))
 			|| settings[$.os.name]
-                        || (notSpecified && browser === undefined);
+                        || (notSpecified && browser === undefined));
 	};
 
 	// Determine if we need to display rejection for this browser, or exit
