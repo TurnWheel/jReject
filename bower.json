@@ -1,0 +1,16 @@
+{
+  "name": "TurnWheel/jReject",
+  "version": "1.1.1",
+  "main": [
+	"js/jquery.reject.js",
+	"css/jquery.reject.css"
+  ],
+  "description": "jQuery Browser Rejection Plugin",
+  "license": "GPLv2",
+  "ignore": [
+    ".jshintrc"
+  ],
+  "dependencies": {
+	"jquery": ">=1.7.0"
+  }
+}
