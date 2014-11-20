@@ -355,13 +355,16 @@ $.reject = function(options) {
 		left: scroll[0]
 	});
 
-	// Wrapper for inner centered content (div)
-	element.find('#jr_inner').css({
+	// If browserShow is FALSE, use default CSS values for #jr_inner
+	if(opts.browserShow){
+	   // Wrapper for inner centered content (div)
+	   element.find('#jr_inner').css({
 		minWidth: displayNum*100,
 		maxWidth: displayNum*140,
-		// min/maxWidth not supported by IE
-		width: $.layout.name == 'trident' ? displayNum*155 : 'auto'
-	});
+			// min/maxWidth not supported by IE
+	   	width: $.layout.name == 'trident' ? displayNum*155 : 'auto'
+	   });
+	}
 
 	element.find('#jr_inner li').css({ // Browser list items (li)
 		background: 'transparent url("'+opts.imagePath+'background_browser.gif") '+
