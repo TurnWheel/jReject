@@ -64,7 +64,7 @@
 
 #jr_inner ul li {
 	cursor: pointer;
-	float: left;
+	display: inline-block;
 	width: 120px;
 	height: 122px;
 	margin: 0 10px 10px 10px;
@@ -111,4 +111,8 @@
 #jr_close p {
 	padding: 10px 0 0 0;
 	margin: 0;
+}
+
+#browserList {
+	text-align: center;
 }
