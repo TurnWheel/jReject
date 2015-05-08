@@ -37,28 +37,37 @@ $.reject = function(options) {
 				// Text below the icon
 				text: 'Google Chrome',
 				// URL For icon/text link
-				url: 'http://www.google.com/chrome/'
+				url: 'http://www.google.com/chrome/',
+				// Custom browser icon url
+				iconUrl: null
 				// (Optional) Use "allow" to customized when to show this option
 				// Example: to show chrome only for IE users
-				// allow: { all: false, msie: true }
+				// allow: { all: false, msie: true },
 			},
 			firefox: {
 				text: 'Mozilla Firefox',
-				url: 'http://www.mozilla.com/firefox/'
+				url: 'http://www.mozilla.com/firefox/',
+				iconUrl: null
 			},
 			safari: {
 				text: 'Safari',
-				url: 'http://www.apple.com/safari/download/'
+				url: 'http://www.apple.com/safari/download/',
+				iconUrl: null
 			},
 			opera: {
 				text: 'Opera',
-				url: 'http://www.opera.com/download/'
+				url: 'http://www.opera.com/download/',
+				iconUrl: null
 			},
 			msie: {
 				text: 'Internet Explorer',
-				url: 'http://www.microsoft.com/windows/Internet-explorer/'
+				url: 'http://www.microsoft.com/windows/Internet-explorer/',
+				iconUrl: null
 			}
 		},
+
+		// Custom background image url
+		backgroundImageUrl: null,
 
 		// Pop-up Window Text
 		header: 'Did you know that your Internet Browser is out of date?',
@@ -93,7 +102,7 @@ $.reject = function(options) {
 			expires: 0
 		},
 
-		// Path where images are located
+		// Path where default images are located
 		imagePath: './images/',
 		// Background color for overlay
 		overlayBgColor: '#000',
@@ -364,16 +373,16 @@ $.reject = function(options) {
 	});
 
 	element.find('#jr_inner li').css({ // Browser list items (li)
-		background: 'transparent url("'+opts.imagePath+'background_browser.gif") '+
-					'no-repeat scroll left top'
+		background: 'transparent url("'+(opts.backgroundImageUrl ? opts.backgroundImageUrl : opts.imagePath+'background_browser.gif') +'") '+'no-repeat scroll left top'
 	});
 
 	element.find('#jr_inner li .jr_icon').each(function() {
 		// Dynamically sets the icon background image
 		var self = $(this);
-		self.css('background','transparent url('+opts.imagePath+'browser_'+
-				(self.parent('li').attr('id').replace(/jr_/,''))+'.gif)'+
-					' no-repeat scroll left top');
+		var browser = self.parent('li').attr('id').replace(/jr_/,'');
+		var browserImage = opts.browserInfo[browser].iconUrl ? opts.browserInfo[browser].iconUrl : opts.imagePath+'browser_'+browser+'.gif';
+
+		self.css('background','transparent url('+browserImage+')'+' no-repeat scroll left top');
 
 		// Send link clicks to openBrowserLinks
 		self.click(function () {
