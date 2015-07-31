@@ -133,13 +133,14 @@ $.reject = function(options) {
 		// Check 3: Browser+major version (eg. 'firefox3','msie7','chrome4')
 		// Check 4: Rendering engine+version (eg. 'webkit', 'gecko', '{webkit: 537.36}')
 		// Check 5: Operating System (eg. 'win','mac','linux','solaris','iphone')
-		var layout = settings[$.layout.name],
-			browser = settings[$.browser.name];
-		return !!(settings['all']
-			|| (browser && (browser === true || $.browser.versionNumber <= browser))
+		var engine = settings[$.engine.name];
+	        	var browser = settings[$.browser.name];
+
+	    	return !!(settings['all']
+			|| (browser && (browser === true || parseFloat($.browser.version) <= browser))
 			|| settings[$.browser.className]
-			|| (layout && (layout === true || $.layout.versionNumber <= layout))
-			|| settings[$.os.name]);
+			|| (engine && (engine === true || parseFloat($.engine.version) <= engine))
+			|| settings[$.browser.platform]);
 	};
 
 	// Determine if we need to display rejection for this browser, or exit
@@ -493,103 +494,256 @@ var _scrollSize = function() {
 };
 })(jQuery);
 
-/*
- * jQuery Browser Plugin
- * Version 2.4 / jReject 1.0.x
- * URL: http://jquery.thewikies.com/browser
- * Description: jQuery Browser Plugin extends browser detection capabilities and
- * can assign browser selectors to CSS classes.
- * Author: Nate Cavanaugh, Minhchau Dang, Jonathan Neal, & Gregory Waxman
- * Updated By: Steven Bower for use with jReject plugin
- * Copyright: Copyright (c) 2008 Jonathan Neal under dual MIT/GPL license.
+
+/*!
+ * jQuery Browser Plugin 0.0.7
+ * https://github.com/gabceb/jquery-browser-plugin
+ *
+ * Original jquery-browser code Copyright 2005, 2015 jQuery Foundation, Inc. and other contributors
+ * http://jquery.org/license
+ *
+ * Modifications Copyright 2015 Gabriel Cebrian
+ * https://github.com/gabceb
+ *
+ * Released under the MIT license
+ *
+ * Date: 19-05-2015
+ */
+/*global window: false */
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], function($) {
+	  factory($);
+        });
+    } else if (typeof module === 'object' && typeof module.exports === 'object') {
+        // Node-like environment
+        module.exports = factory(require('jquery'));
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function(jQuery) {
+    "use strict";
+
+    function uaMatch( ua ) {
+        // If an UA is not provided, default to the current browser UA.
+        if ( ua === undefined ) {
+	  ua = window.navigator.userAgent;
+        }
+        ua = ua.toLowerCase();
+
+        var match = /(edge)\/([\w.]+)/.exec( ua ) ||
+	  /(opr)[\/]([\w.]+)/.exec( ua ) ||
+	  /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
+	  /(version)(applewebkit)[ \/]([\w.]+).*(safari)[ \/]([\w.]+)/.exec( ua ) ||
+	  /(webkit)[ \/]([\w.]+).*(version)[ \/]([\w.]+).*(safari)[ \/]([\w.]+)/.exec( ua ) ||
+	  /(webkit)[ \/]([\w.]+)/.exec( ua ) ||
+	  /(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
+	  /(msie) ([\w.]+)/.exec( ua ) ||
+	  ua.indexOf("trident") >= 0 && /(rv)(?::| )([\w.]+)/.exec( ua ) ||
+	  ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
+	  [];
+
+        var platform_match = /(ipad)/.exec( ua ) ||
+	  /(ipod)/.exec( ua ) ||
+	  /(iphone)/.exec( ua ) ||
+	  /(kindle)/.exec( ua ) ||
+	  /(silk)/.exec( ua ) ||
+	  /(android)/.exec( ua ) ||
+	  /(windows phone)/.exec( ua ) ||
+	  /(win)/.exec( ua ) ||
+	  /(mac)/.exec( ua ) ||
+	  /(linux)/.exec( ua ) ||
+	  /(cros)/.exec( ua ) ||
+	  /(playbook)/.exec( ua ) ||
+	  /(bb)/.exec( ua ) ||
+	  /(blackberry)/.exec( ua ) ||
+	  [];
+
+        var browser = {},
+	  matched = {
+	      browser: match[ 5 ] || match[ 3 ] || match[ 1 ] || "",
+	      version: match[ 2 ] || match[ 4 ] || "0",
+	      versionNumber: match[ 4 ] || match[ 2 ] || "0",
+	      platform: platform_match[ 0 ] || ""
+	  };
+
+        if ( matched.browser ) {
+	  browser[ matched.browser ] = true;
+	  browser.version = matched.version;
+	  browser.versionNumber = parseInt(matched.versionNumber, 10);
+        }
+
+        if ( matched.platform ) {
+	  browser[ matched.platform ] = true;
+        }
+
+        // These are all considered mobile platforms, meaning they run a mobile browser
+        if ( browser.android || browser.bb || browser.blackberry || browser.ipad || browser.iphone ||
+	  browser.ipod || browser.kindle || browser.playbook || browser.silk || browser[ "windows phone" ]) {
+	  browser.mobile = true;
+        }
+
+        // These are all considered desktop platforms, meaning they run a desktop browser
+        if ( browser.cros || browser.mac || browser.linux || browser.win ) {
+	  browser.desktop = true;
+        }
+
+        // Chrome, Opera 15+ and Safari are webkit based browsers
+        if ( browser.chrome || browser.opr || browser.safari ) {
+	  browser.webkit = true;
+        }
+
+        // IE11 has a new token so we will assign it msie to avoid breaking changes
+        // IE12 disguises itself as Chrome, but adds a new Edge token.
+        if ( browser.rv || browser.edge ) {
+	  var ie = "msie";
+
+	  matched.browser = ie;
+	  browser[ie] = true;
+        }
+
+        // Blackberry browsers are marked as Safari on BlackBerry
+        if ( browser.safari && browser.blackberry ) {
+	  var blackberry = "blackberry";
+
+	  matched.browser = blackberry;
+	  browser[blackberry] = true;
+        }
+
+        // Playbook browsers are marked as Safari on Playbook
+        if ( browser.safari && browser.playbook ) {
+	  var playbook = "playbook";
+
+	  matched.browser = playbook;
+	  browser[playbook] = true;
+        }
+
+        // BB10 is a newer OS version of BlackBerry
+        if ( browser.bb ) {
+	  var bb = "blackberry";
+
+	  matched.browser = bb;
+	  browser[bb] = true;
+        }
+
+        // Opera 15+ are identified as opr
+        if ( browser.opr ) {
+	  var opera = "opera";
+
+	  matched.browser = opera;
+	  browser[opera] = true;
+        }
+
+        // Stock Android browsers are marked as Safari on Android.
+        if ( browser.safari && browser.android ) {
+	  var android = "android";
+
+	  matched.browser = android;
+	  browser[android] = true;
+        }
+
+        // Kindle browsers are marked as Safari on Kindle
+        if ( browser.safari && browser.kindle ) {
+	  var kindle = "kindle";
+
+	  matched.browser = kindle;
+	  browser[kindle] = true;
+        }
+
+        // Kindle Silk browsers are marked as Safari on Kindle
+        if ( browser.safari && browser.silk ) {
+	  var silk = "silk";
+
+	  matched.browser = silk;
+	  browser[silk] = true;
+        }
+
+        // Assign the name and platform variable
+        browser.name = matched.browser;
+        browser.platform = matched.platform;
+        return browser;
+    }
+
+    // Run the matching process, also assign the function to the returned object
+    // for manual, jQuery-free use if desired
+    window.jQBrowser = uaMatch( window.navigator.userAgent );
+    window.jQBrowser.uaMatch = uaMatch;
+
+    // Only assign to jQuery.browser if jQuery is loaded
+    if ( jQuery ) {
+        jQuery.browser = window.jQBrowser;
+    }
+
+    return window.jQBrowser;
+}));
+
+/*!
+ * layouter 0.0.1
+ * https://github.com/djachenko/layouter
+ *
+ * Description: layouter is lightweight JavaScript-based plugin for browser layout engine detection
+ * Author: Igor Djachenko
+ * Based on:
+ * * jquery-browser-plugin (https://github.com/gabceb/jquery-browser-plugin)
+ * * ua-parser-js (https://github.com/faisalman/ua-parser-js)
+ *
+ * Copyright: Copyright © 2015 Igor Djachenko under dual MIT license.
  */
 
-(function ($) {
-	$.browserTest = function (a, z) {
-		var u = 'unknown',
-			x = 'X',
-			m = function (r, h) {
-				for (var i = 0; i < h.length; i = i + 1) {
-					r = r.replace(h[i][0], h[i][1]);
-				}
+(function() {
+    var Layouter = function () {
+        this.parse = function (uaString) {
+	  var match = /(windows.+\sedge)\/([\w\.]+)/i.exec(uaString) ||
+	      /(presto|webkit|trident|netfront|netsurf|amaya|lynx|w3m)\/([\w\.]+)/i.exec(uaString) ||
+	      /(khtml|tasman|links)[\/\s]\(?([\w\.]+)/i.exec(uaString) ||
+	      /(icab)[\/\s]([23]\.[\d\.]+)/i.exec(uaString) ||
+	      /rv:([\w\.]+).*(gecko)/i.exec(uaString);
 
-				return r;
-			}, c = function (i, a, b, c) {
-				var r = {
-					name: m((a.exec(i) || [u, u])[1], b)
-				};
+	  var result;
 
-				r[r.name] = true;
+	  if (!!match) {
+	      result = {
+		name: match[1],
+		version: match[2]
+	      };
 
-				if (!r.opera) {
-					r.version = (c.exec(i) || [x, x, x, x])[3];
-				}
-				else {
-					r.version = window.opera.version();
-				}
+	      if (/(windows.+\sedge)/i.exec(result.name)) {
+		result.name = "EdgeHTML";
+	      }
+	      else if ("gecko" === result.version.toLowerCase()) {
+		var temp = result.version;
+		result.version = result.name;
+		result.name = temp;
+	      }
+	  }
 
-				if (/safari/.test(r.name)) {
-					var safariversion = /(safari)(\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/;
-					var res = safariversion.exec(i);
-					if (res && res[3] && res[3] < 400) {
-						r.version = '2.0';
-					}
-				}
+	  return result;
+        };
 
-				else if (r.name === 'presto') {
-					r.version = ($.browser.version > 9.27) ? 'futhark' : 'linear_b';
-				}
+        return this;
+    };
 
-				if (/msie/.test(r.name) && r.version === x) {
-					var ieVersion = /rv:(\d+\.\d+)/.exec(i);
-					r.version = ieVersion[1];
-				}
+    if (typeof(exports) !== "undefined") {
+        // nodejs env
+        if (typeof module !== "undefined" && module.exports) {
+	  exports = module.exports = Layouter;
+        }
 
-				r.versionNumber = parseFloat(r.version, 10) || 0;
-				var minorStart = 1;
+        exports.Layouter = Layouter;
+    }
 
-				if (r.versionNumber < 100 && r.versionNumber > 9) {
-					minorStart = 2;
-				}
+    if (typeof(window) !== 'undefined' &&
+        typeof(window.navigator) !== "undefined" &&
+        typeof(window.navigator.userAgent) !== 'undefined') {
+        var engine = new Layouter().parse(window.navigator.userAgent);
 
-				r.versionX = (r.version !== x) ? r.version.substr(0, minorStart) : x;
-				r.className = r.name + r.versionX;
+        window.engine = engine;
 
-				return r;
-			};
-
-		a = (/Opera|Navigator|Minefield|KHTML|Chrome|CriOS/.test(a) ? m(a, [
-			[/(Firefox|MSIE|KHTML,\slike\sGecko|Konqueror)/, ''],
-			['Chrome Safari', 'Chrome'],
-			['CriOS', 'Chrome'],
-			['KHTML', 'Konqueror'],
-			['Minefield', 'Firefox'],
-			['Navigator', 'Netscape']
-		]) : a).toLowerCase();
-
-		$.browser = $.extend((!z) ? $.browser : {}, c(a,
-			/(camino|chrome|crios|firefox|netscape|konqueror|lynx|msie|trident|opera|safari)/,
-			[
-				['trident', 'msie']
-			],
-			/(camino|chrome|crios|firefox|netscape|netscape6|opera|version|konqueror|lynx|msie|rv|safari)(:|\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/));
-
-		$.layout = c(a, /(gecko|konqueror|msie|trident|opera|webkit)/, [
-			['konqueror', 'khtml'],
-			['msie', 'trident'],
-			['opera', 'presto']
-		], /(applewebkit|rv|konqueror|msie)(\:|\/|\s)([a-z0-9\.]*?)(\;|\)|\s)/);
-
-		$.os = {
-			name: (/(win|mac|linux|sunos|solaris|iphone|ipad)/.
-					exec(navigator.platform.toLowerCase()) || [u])[0].replace('sunos', 'solaris')
-		};
-
-		if (!z) {
-			$('html').addClass([$.os.name, $.browser.name, $.browser.className,
-				$.layout.name, $.layout.className].join(' '));
-		}
-	};
-
-	$.browserTest(navigator.userAgent);
-}(jQuery));
+        if ($) {
+	  $.engine = engine;
+        }
+    }
+})();
