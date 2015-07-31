@@ -415,11 +415,13 @@ options = {
 		<h2>Browser Plugin Options</h2>
 		<script>
 		$(function() {
-			$('#b_className').text($.browser.className);
+			$('#b_className').text($.browser.name + $.browser.versionNumber);
 			$('#b_name').text($.browser.name);
 			$('#b_version').text($.browser.version);
-			$('#b_versionX').text($.browser.versionX);
-			$('#b_osname').text($.os.name);
+			$('#b_versionX').text($.browser.versionNumber);
+			$('#b_osname').text($.browser.platform);
+			$("#l_name").text($.engine.name);
+			$("#l_version").text($.engine.version);
 		});
 		</script>
 		$.browser.className = <strong id="b_className"></strong><br />
@@ -427,6 +429,8 @@ options = {
 		$,browser.version = <strong id="b_version"></strong><br />
 		$.browser.versionX = <strong id="b_versionX"></strong><br />
 		$.os.name = <strong id="b_osname"></strong><br />
+		$.layout.name = <strong id="l_name"></strong><br />
+		$.layout.version = <strong id="l_version"></strong><br />
 
 		<hr />
 
