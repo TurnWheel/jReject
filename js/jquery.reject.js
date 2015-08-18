@@ -95,6 +95,8 @@ $.reject = function(options) {
 
 		// Path where images are located
 		imagePath: './images/',
+		// File extension of images
+		imageFileExtension: 'gif',
 		// Background color for overlay
 		overlayBgColor: '#000',
 		// Background transparency (0-1)
@@ -364,7 +366,7 @@ $.reject = function(options) {
 	});
 
 	element.find('#jr_inner li').css({ // Browser list items (li)
-		background: 'transparent url("'+opts.imagePath+'background_browser.gif") '+
+		background: 'transparent url("'+opts.imagePath+'background_browser.' + opts.imageFileExtension + '") '+
 					'no-repeat scroll left top'
 	});
 
@@ -372,7 +374,7 @@ $.reject = function(options) {
 		// Dynamically sets the icon background image
 		var self = $(this);
 		self.css('background','transparent url('+opts.imagePath+'browser_'+
-				(self.parent('li').attr('id').replace(/jr_/,''))+'.gif)'+
+				(self.parent('li').attr('id').replace(/jr_/,''))+'.' + opts.imageFileExtension + ')'+
 					' no-repeat scroll left top');
 
 		// Send link clicks to openBrowserLinks
