@@ -75,7 +75,7 @@ $.reject = function(options) {
 		// Message displayed below closing link
 		closeMessage: 'By closing this window you acknowledge that your experience '+
 						'on this website may be degraded',
-		closeLink: 'Close This Window',
+		closeTitle: 'Close This Window',
 		closeURL: '#',
 
 		// Allows closing of window with esc key
@@ -218,8 +218,18 @@ $.reject = function(options) {
 	// Load background overlay (jr_overlay) + Main wrapper (jr_wrap) +
 	// Inner Wrapper (jr_inner) w/ opts.header (jr_header) +
 	// opts.paragraph1/opts.paragraph2 if set
-	var html = '<div id="jr_overlay"></div><div id="jr_wrap"><div id="jr_inner">'+
-		'<h1 id="jr_header">'+opts.header+'</h1>'+
+	var html = '<div id="jr_overlay"></div><div id="jr_wrap"><div id="jr_inner" class="noselect">';
+
+	// Display close button
+	html += '<div id="jr_close">';
+	if(opts.close) {
+		html += '<a href="' + opts.closeURL + '">'
+			  + '<img src="' + opts.imagePath + 'close.' + opts.imageFileExtension + '" alt="' + opts.closeTitle + '" title="' + opts.closeTitle + '">'
+			  + '</a>';
+	}
+	html += '</div>';
+
+	html += '<h1 id="jr_header">'+opts.header+'</h1>'+
 		(opts.paragraph1 === '' ? '' : '<p>'+opts.paragraph1+'</p>')+
 		(opts.paragraph2 === '' ? '' : '<p>'+opts.paragraph2+'</p>');
 
@@ -252,13 +262,12 @@ $.reject = function(options) {
 		html += '</ul>';
 	}
 
-	// Close list and #jr_list
-	html += '<div id="jr_close">'+
-	// Display close links/message if set
-	(opts.close ? '<a href="'+opts.closeURL+'">'+opts.closeLink+'</a>'+
-		'<p>'+opts.closeMessage+'</p>' : '')+'</div>'+
+	// Display close message
+	html += '<div>' + (opts.close ? '<p>'+opts.closeMessage+'</p>' : '') + '</div>';
+	html += '<div class="clear"></div>';
+
 	// Close #jr_inner and #jr_wrap
-	'</div></div>';
+	html += '</div></div>';
 
 	var element = $('<div>'+html+'</div>'); // Create element
 	var size = _pageSize(); // Get page size
@@ -375,7 +384,7 @@ $.reject = function(options) {
 		var self = $(this);
 		self.css('background','transparent url('+opts.imagePath+'browser_'+
 				(self.parent('li').attr('id').replace(/jr_/,''))+'.' + opts.imageFileExtension + ')'+
-					' no-repeat scroll left top');
+					' no-repeat scroll center center');
 
 		// Send link clicks to openBrowserLinks
 		self.click(function () {
