@@ -518,8 +518,17 @@ var _scrollSize = function() {
 				var r = {
 					name: m((a.exec(i) || [u, u])[1], b)
 				};
+				
+				// Edge claims to be everything and edge last so we need to test for this after we get the wrong result
+				if(/edge\//.test(i)) {
+					r.name = 'edge';
+				}
 
 				r[r.name] = true;
+				
+				if(r.edge) {
+					c = /(edge)(:|\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/;
+				}
 
 				if (!r.opera) {
 					r.version = (c.exec(i) || [x, x, x, x])[3];
