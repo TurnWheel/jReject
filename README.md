@@ -1,7 +1,12 @@
 [jReject](http://jreject.turnwheel.com/) - jQuery Browser Rejection Plugin
 ================================
 
+```markdown
+# ⚠️ Unmaintained: This project is no longer maintained, and may not be compatible with latest browser versions. Please seek alternatives for similar functionality.
+```
+
 Created by Steven Bower
+
 TurnWheel Designs (2009-2014)
 
 Concept based on "IE6 Upgrade Warning" library.
