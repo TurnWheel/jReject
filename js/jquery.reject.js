@@ -546,13 +546,7 @@ var _scrollSize = function() {
 				}
 
 				r.versionNumber = parseFloat(r.version, 10) || 0;
-				var minorStart = 1;
-
-				if (r.versionNumber < 100 && r.versionNumber > 9) {
-					minorStart = 2;
-				}
-
-				r.versionX = (r.version !== x) ? r.version.substr(0, minorStart) : x;
+				r.versionX = Math.trunc(parseFloat(r.version)) || x;
 				r.className = r.name + r.versionX;
 
 				return r;
