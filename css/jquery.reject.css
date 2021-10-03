@@ -29,6 +29,7 @@
 	font-size: 12px;
 	background: #FFF;
 	border: 1px solid #CCC;
+	border-radius: 8px;
 	color: #4F4F4F;
 	margin: 0 auto;
 	height: auto;
@@ -97,6 +98,7 @@
 	clear: both;
 	padding: 0;
 	margin: 0;
+	float: right;
 }
 
 #jr_close a {
@@ -111,4 +113,17 @@
 #jr_close p {
 	padding: 10px 0 0 0;
 	margin: 0;
+}
+
+.clear {
+	clear: both;
+}
+
+.noselect {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	cursor: default;
 }
