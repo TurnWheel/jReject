@@ -28,6 +28,9 @@ $.reject = function(options) {
 			 *
 			 * There is also "unknown" that covers what isn't detected
 			 * Example: unknown: true
+                         *
+                         * Finally you can specify a default behaviour. To reject any browser not covered by reject rules,
+                         * just specify: default: true
 			 */
 		},
 		display: [], // What browsers to display and their order (default set below)
@@ -134,12 +137,14 @@ $.reject = function(options) {
 		// Check 4: Rendering engine+version (eg. 'webkit', 'gecko', '{webkit: 537.36}')
 		// Check 5: Operating System (eg. 'win','mac','linux','solaris','iphone')
 		var layout = settings[$.layout.name],
-			browser = settings[$.browser.name];
+			browser = settings[$.browser.name],
+                    notSpecified = settings['default'];
 		return !!(settings['all']
 			|| (browser && (browser === true || $.browser.versionNumber <= browser))
 			|| settings[$.browser.className]
 			|| (layout && (layout === true || $.layout.versionNumber <= layout))
-			|| settings[$.os.name]);
+			|| settings[$.os.name]
+                        || (notSpecified && browser === undefined));
 	};
 
 	// Determine if we need to display rejection for this browser, or exit
