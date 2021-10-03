@@ -223,7 +223,7 @@ $.reject = function(options) {
 
 	var displayNum = 0;
 	if (opts.browserShow) {
-		html += '<ul>';
+		html += '<ul id="browserList">';
 
 		// Generate the browsers to display
 		for (var x in opts.display) {
@@ -240,7 +240,7 @@ $.reject = function(options) {
 			var url = info.url || '#'; // URL to link text/icon to
 
 			// Generate HTML for this browser option
-			html += '<li id="jr_'+browser+'"><div class="jr_icon"></div>'+
+			html += '<li id="jr_'+browser+'" class="browser"><div class="jr_icon"></div>'+
 					'<div><a href="'+url+'">'+(info.text || 'Unknown')+'</a>'+
 					'</div></li>';
 
@@ -358,9 +358,9 @@ $.reject = function(options) {
 	// Wrapper for inner centered content (div)
 	element.find('#jr_inner').css({
 		minWidth: displayNum*100,
-		maxWidth: displayNum*140,
+		maxWidth: displayNum === 1 ? 300 : displayNum*140,
 		// min/maxWidth not supported by IE
-		width: $.layout.name == 'trident' ? displayNum*155 : 'auto'
+		width: $.layout.name == 'trident' ? (displayNum === 1 ? 300 : displayNum*155 ) : 'auto'
 	});
 
 	element.find('#jr_inner li').css({ // Browser list items (li)
